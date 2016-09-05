@@ -2,11 +2,13 @@ package com.tr.game.state.menue;
 
 import com.tr.engine.core.TRGameLooper;
 import com.tr.engine.grf.TRScene;
+import com.tr.engine.grf.gl.TRGLImageView;
+import com.tr.engine.img.TRImage;
 import com.tr.engine.obj.state.TRAbstractGameState;
 
 public class GameMenueState extends TRAbstractGameState{
 	
-	private MenueBackground bg = null;
+	private TRGLImageView bg = null;
 	private MenueButtons buttons = null;
 	
 	public GameMenueState(){
@@ -31,8 +33,8 @@ public class GameMenueState extends TRAbstractGameState{
 	}
 	
 	private void initComponents(TRScene scene){
-		bg = new MenueBackground();
-		
+		bg = new TRGLImageView(new TRImage("gb_evening_1", "savanna_bg_evening", "png", "/img", 0, 0, 0, 1280, 1024, 1280, 1024));
+		bg.setFixedPosition(TRGLImageView.FIXED_POS_CENTER);
 	}
 	
 	private void addComponents(TRScene scene){

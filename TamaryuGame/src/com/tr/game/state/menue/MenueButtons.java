@@ -9,6 +9,7 @@ import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.sound.AudioMaster;
+import com.tr.util.LanguageTranslator;
 
 public class MenueButtons extends TRGLImageView {
 
@@ -76,7 +77,7 @@ public class MenueButtons extends TRGLImageView {
 
 		for (int i = options.length - 1; i >= 0; i--) {
 			//TRTextButton l = TRComponentManager.getTxtButton(options[i]);
-			TRTextButton l = createButton(options[i]);
+			TRTextButton l = createButton(LanguageTranslator.getString(options[i]));
 			/*l.setFont("Arial", true);
 			l.setPosition(0, gh);
 			gw = Math.max(gw, l.getWidth());

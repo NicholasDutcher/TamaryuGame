@@ -6,12 +6,14 @@ import com.tr.game.state.menue.GameMenueState;
 
 public class TamaryuGameStateFactory extends TRGameStateFactory {
 	
-	public static final int START_MENU_STATE = 0;
-	public static final int GAME_STATE = 1;
-	public static final int LANGUAGE_STATE = 2;
-	public static final int HELP_STATE = 3;
-	public static final int TEST_STATE = 4;
-	public static final int INVENTORY_TEST_STATE = 5;
+	public static final int LOGIN_STATE = 0;
+	public static final int ISLAND_STATE = 1;
+	public static final int DRAGON_STATE = 2;
+	public static final int INTERACTION_STATE = 3;
+	public static final int BREEDING_STATE = 4;
+	public static final int MINIGAME_STATE = 5;
+	public static final int RESULT_STATE = 6;
+	public static final int SETTING_STATE  = 7;
 
 	@Override
 	public TRAbstractGameState getState(int id) {
