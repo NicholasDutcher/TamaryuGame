@@ -2,6 +2,7 @@ package com.tr.game.core.states;
 
 import com.tr.engine.obj.state.TRAbstractGameState;
 import com.tr.engine.obj.state.TRGameStateFactory;
+import com.tr.game.state.login.LoginState;
 import com.tr.game.state.menue.GameMenueState;
 
 public class TamaryuGameStateFactory extends TRGameStateFactory {
@@ -17,13 +18,31 @@ public class TamaryuGameStateFactory extends TRGameStateFactory {
 
 	@Override
 	public TRAbstractGameState getState(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		switch(id)
+		{
+		case SETTING_STATE:
+			return new LoginState();
+		case RESULT_STATE:
+			return new LoginState();
+		case MINIGAME_STATE:
+			return new LoginState();
+		case BREEDING_STATE:
+			return new LoginState();
+		case INTERACTION_STATE:
+			return new LoginState();
+		case DRAGON_STATE:
+			return new LoginState();
+		case ISLAND_STATE:
+			return new LoginState();				
+		case LOGIN_STATE:
+		default:
+			return new LoginState();
+		}
 	}
 
 	@Override
 	public TRAbstractGameState getDefaultState() {
-		return new GameMenueState();
+		return new LoginState();
 	}
 
 	@Override
