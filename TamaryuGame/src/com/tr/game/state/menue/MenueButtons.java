@@ -26,7 +26,7 @@ public class MenueButtons extends TRGLImageView {
 		
 		//Sound laden
 		String[] audios = new String[1];
-		audios[0] =  "res/sound/GitarrenLoop.wav";
+		audios[0] =  "res/sound/Gurren1.wav";
 		AudioMaster.loadAudioFiles(audios);
 	}
 
