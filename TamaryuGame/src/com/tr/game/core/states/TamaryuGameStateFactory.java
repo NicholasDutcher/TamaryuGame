@@ -2,6 +2,7 @@ package com.tr.game.core.states;
 
 import com.tr.engine.obj.state.TRAbstractGameState;
 import com.tr.engine.obj.state.TRGameStateFactory;
+import com.tr.game.state.island.IslandMainState;
 import com.tr.game.state.login.LoginState;
 import com.tr.game.state.menue.GameMenueState;
 
@@ -33,7 +34,7 @@ public class TamaryuGameStateFactory extends TRGameStateFactory {
 		case DRAGON_STATE:
 			return new LoginState();
 		case ISLAND_STATE:
-			return new LoginState();				
+			return new IslandMainState();				
 		case LOGIN_STATE:
 		default:
 			return new LoginState();
