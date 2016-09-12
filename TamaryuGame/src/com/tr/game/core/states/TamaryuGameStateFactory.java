@@ -22,7 +22,7 @@ public class TamaryuGameStateFactory extends TRGameStateFactory {
 		switch(id)
 		{
 		case SETTING_STATE:
-			return new LoginState();
+			return new GameMenueState();
 		case RESULT_STATE:
 			return new LoginState();
 		case MINIGAME_STATE:
