@@ -41,7 +41,7 @@ public class Tamaryu {
 		initGSM();
 		
 		//load first gamestate
-		TRGameStateManager.setState(1);
+		TRGameStateManager.setState(0);
 		
 		//scene.addComponent(new MenueBackground());
 		//scene.addComponent(new MenueButtons(scene));
