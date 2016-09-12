@@ -8,6 +8,7 @@ import com.tr.engine.components.TRTextButton;
 import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLImageView;
+import com.tr.engine.obj.state.TRGameStateManager;
 import com.tr.engine.sound.AudioMaster;
 import com.tr.util.LanguageTranslator;
 
@@ -16,7 +17,7 @@ public class MenueButtons extends TRGLImageView {
 	private ArrayList<TRTextButton> buttons = new ArrayList<TRTextButton>();
 	private int gw = 0, gh = 0;
 
-	private String[] options = { "start", "language", "help", "quit" };
+//	private String[] options = { "start", "language", "help", "quit" };
 
 	public MenueButtons(TRScene s) {
 		super();
@@ -25,8 +26,9 @@ public class MenueButtons extends TRGLImageView {
 		this.setFixedPosition(FIXED_POS_CENTER);
 		
 		//Sound laden
-		String[] audios = new String[1];
-		audios[0] =  "res/sound/Apple1.wav";
+		String[] audios = new String[2];
+		audios[0] =  "res/sound/Blob1.wav";
+		audios[1] =  "res/sound/Drip1.wav";
 		AudioMaster.loadAudioFiles(audios);
 	}
 
@@ -76,14 +78,78 @@ public class MenueButtons extends TRGLImageView {
 
 	private void initButtons(TRScene s) {
 
+//startButton
+		TRTextButton startB = createButton(LanguageTranslator.getString("start"));
+		startB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+
+			@Override
+			public void run() {
+				//AudioMaster.playSource(1);
+				//TRGameStateManager.setState(7);
+				TRGameStateManager.reset();
+			}});
+		this.addComponent(startB);
+		s.addMouseListener(startB);
+		
+//languageButton
+		TRTextButton langB = createButton(LanguageTranslator.getString("language"));
+		langB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+
+			@Override
+			public void run() {
+				AudioMaster.playSource(1);
+				TRGameStateManager.setState(8);
+				TRGameStateManager.reset();
+			}});
+		this.addComponent(langB);
+		s.addMouseListener(langB);
+		
+//helpButton
+		TRTextButton helpB = createButton(LanguageTranslator.getString("help"));
+		helpB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+
+			@Override
+			public void run() {
+				AudioMaster.playSource(1);
+				TRGameStateManager.setState(9);
+				TRGameStateManager.reset();
+			}});
+		this.addComponent(helpB);
+		s.addMouseListener(helpB);
+		
+//quitButton
+		TRTextButton qB = createButton(LanguageTranslator.getString("quit"));
+		qB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+
+			@Override
+			public void run() {
+				AudioMaster.playSource(1);
+				//beenden
+				TRGameStateManager.reset();
+			}});
+		this.addComponent(qB);
+		s.addMouseListener(qB);
+		
+		
+		
+		System.out.println("GW / GH: "+gw+" / "+gh);
+
+		for (IRenderable r : this.components) {
+			// System.out.println("Set Alignment!");
+			TRTextButton l = (TRTextButton) r;
+			l.setSize(gw, r.getHeight());
+			l.setAlignment(TRLabel.CENTER);
+		}
+		
+/*Alte Methode mit Loop
 		for (int i = options.length - 1; i >= 0; i--) {
 			//TRTextButton l = TRComponentManager.getTxtButton(options[i]);
 			TRTextButton l = createButton(LanguageTranslator.getString(options[i]));
-			/*l.setFont("Arial", true);
-			l.setPosition(0, gh);
-			gw = Math.max(gw, l.getWidth());
+			//l.setFont("Arial", true);
+			//l.setPosition(0, gh);
+			//gw = Math.max(gw, l.getWidth());
 			// System.out.println("GW : "+gw);
-			gh += l.getHeight();*/
+			//gh += l.getHeight();
 			this.addComponent(l);
 			s.addMouseListener(l);
 		}
@@ -94,7 +160,7 @@ public class MenueButtons extends TRGLImageView {
 			l.setSize(gw, r.getHeight());
 			l.setAlignment(TRLabel.CENTER);
 		}
-
+*/
 		this.setSize(gw, gh);
 	}
 

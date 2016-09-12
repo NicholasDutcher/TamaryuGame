@@ -22,8 +22,9 @@ public class LangButtons extends TRGLImageView {
 		this.setFixedPosition(FIXED_POS_CENTER);
 		
 		//Sound laden
-		String[] audios = new String[1];
-		audios[0] =  "res/sound/Apple1.wav";
+		String[] audios = new String[2];
+		audios[0] =  "res/sound/Blob1.wav";
+		audios[1] =  "res/sound/Drip1.wav";
 		AudioMaster.loadAudioFiles(audios);
 	}
 
@@ -72,27 +73,45 @@ public class LangButtons extends TRGLImageView {
 
 	private void initButtons(TRScene s) {
 
+//setGermanButton
 		TRTextButton deB = createButton(LanguageTranslator.getString("german"));
 		deB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
 
 			@Override
 			public void run() {
+				AudioMaster.playSource(1);
 				LanguageTranslator.changeLanguage("de");	
 				TRGameStateManager.reset();
 			}});
-		s.addComponent(deB);
+		this.addComponent(deB);
 		s.addMouseListener(deB);
-		
-		TRTextButton enB = createButton(LanguageTranslator.getString("german"));
+
+//setEnglishButton
+		TRTextButton enB = createButton(LanguageTranslator.getString("english"));
 		enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
 
 			@Override
 			public void run() {
+				AudioMaster.playSource(1);
 				LanguageTranslator.changeLanguage("en");	
 				TRGameStateManager.reset();
 			}});
-		s.addComponent(enB);
+		this.addComponent(enB);
 		s.addMouseListener(enB);
+
+//backButton
+		TRTextButton backB = createButton(LanguageTranslator.getString("back"));
+		backB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+
+			@Override
+			public void run() {
+				AudioMaster.playSource(1);
+				TRGameStateManager.setState(7);
+				TRGameStateManager.reset();
+			}});
+		this.addComponent(backB);
+		s.addMouseListener(backB);
+		
 		
 		System.out.println("GW / GH: "+gw+" / "+gh);
 

@@ -73,6 +73,7 @@ public class HelpButtons extends TRGLImageView {
 
 	private void initButtons(TRScene s) {
 
+//backButton
 		TRTextButton backB = createButton(LanguageTranslator.getString("back"));
 		backB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
 
@@ -82,7 +83,7 @@ public class HelpButtons extends TRGLImageView {
 				TRGameStateManager.setState(7);
 				TRGameStateManager.reset();
 			}});
-		s.addComponent(backB);
+		this.addComponent(backB);
 		s.addMouseListener(backB);
 		
 		//ka was das ist
