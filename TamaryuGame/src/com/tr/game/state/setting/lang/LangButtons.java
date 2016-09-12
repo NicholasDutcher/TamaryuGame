@@ -1,4 +1,4 @@
-package com.tr.game.state.menue;
+package com.tr.game.state.setting.lang;
 
 import java.util.ArrayList;
 
@@ -8,17 +8,14 @@ import com.tr.engine.components.TRTextButton;
 import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLImageView;
+import com.tr.engine.obj.state.TRGameStateManager;
 import com.tr.engine.sound.AudioMaster;
 import com.tr.util.LanguageTranslator;
 
-public class MenueButtons extends TRGLImageView {
-
-	private ArrayList<TRTextButton> buttons = new ArrayList<TRTextButton>();
+public class LangButtons extends TRGLImageView {
 	private int gw = 0, gh = 0;
 
-	private String[] options = { "start", "language", "help", "quit" };
-
-	public MenueButtons(TRScene s) {
+	public LangButtons(TRScene s) {
 		super();
 		this.setPosition(0, 0, -15);
 		initButtons(s);
@@ -65,7 +62,6 @@ public class MenueButtons extends TRGLImageView {
 		l.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("Call UP!");
 				l.increasePos(-10, 0, 0);
 			}
 		});
@@ -76,17 +72,29 @@ public class MenueButtons extends TRGLImageView {
 
 	private void initButtons(TRScene s) {
 
-		for (int i = options.length - 1; i >= 0; i--) {
-			//TRTextButton l = TRComponentManager.getTxtButton(options[i]);
-			TRTextButton l = createButton(LanguageTranslator.getString(options[i]));
-			/*l.setFont("Arial", true);
-			l.setPosition(0, gh);
-			gw = Math.max(gw, l.getWidth());
-			// System.out.println("GW : "+gw);
-			gh += l.getHeight();*/
-			this.addComponent(l);
-			s.addMouseListener(l);
-		}
+		TRTextButton deB = createButton(LanguageTranslator.getString("german"));
+		deB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+
+			@Override
+			public void run() {
+				LanguageTranslator.changeLanguage("de");	
+				TRGameStateManager.reset();
+			}});
+		s.addComponent(deB);
+		s.addMouseListener(deB);
+		
+		TRTextButton enB = createButton(LanguageTranslator.getString("german"));
+		enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+
+			@Override
+			public void run() {
+				LanguageTranslator.changeLanguage("en");	
+				TRGameStateManager.reset();
+			}});
+		s.addComponent(enB);
+		s.addMouseListener(enB);
+		
+		System.out.println("GW / GH: "+gw+" / "+gh);
 
 		for (IRenderable r : this.components) {
 			// System.out.println("Set Alignment!");
