@@ -14,83 +14,82 @@ import com.tr.game.core.states.TamaryuGameStateFactory;
 import demo.tama.TamaAnimation1;
 
 public class Tamaryu {
-	//graphics
+	// graphics
 	protected TRRenderContext rc;
 	protected TRGameWindow gw;
 	protected TRScene scene;
-	
-	//game manager
+
+	// game manager
 	protected TRGameLooper looper = new TRGameLooper();
-	protected TRDragAndDropManager dndm  = new TRDragAndDropManager();
+	protected TRDragAndDropManager dndm = new TRDragAndDropManager();
 	protected TRGameStateFactory gsf = new TamaryuGameStateFactory();
-	
-	public Tamaryu(){
-		//init graphics
+
+	public Tamaryu() {
+		// init graphics
 		initGraphics();
-		
-		//init sound
+
+		// init sound
 		initAudio();
-		
-		//init looper
+
+		// init looper
 		initLooper();
-		
-		//init DnD
+
+		// init DnD
 		initDnD();
-		
-		//init gamestate manager
+
+		// init gamestate manager
 		initGSM();
-		
-		//load first gamestate
-		TRGameStateManager.setState(7);
-		
-		//scene.addComponent(new MenueBackground());
-		//scene.addComponent(new MenueButtons(scene));
-		//scene.addComponent(new TamaAnimation1());
+
+		// load first gamestate
+		TRGameStateManager.setState(TamaryuGameStateFactory.LOGIN_STATE);
+
+		// scene.addComponent(new MenueBackground());
+		// scene.addComponent(new MenueButtons(scene));
+		// scene.addComponent(new TamaAnimation1());
 
 	}
-	
-	private void initAudio(){
+
+	private void initAudio() {
 		AudioMaster.initialize();
 	}
-	
-	private void initGSM(){
+
+	private void initGSM() {
 		TRGameStateManager.init(scene, looper);
 		TRGameStateManager.setFactory(gsf);
 	}
-	
-	private void initGraphics(){
+
+	private void initGraphics() {
 		rc = new TRGLRenderContext(1024, 740);
 		rc.setDebug(true);
 		rc.init();
-		rc.addOnClose(new Runnable(){
+		rc.addOnClose(new Runnable() {
 
 			@Override
 			public void run() {
 				destroy();
-			}});
-		
+			}
+		});
+
 		gw = rc.createWindow();
 		gw.setFullscreen(true);
 		scene = rc.getScene();
 		gw.setTitel("Tamaryu v0.1");
 		gw.start();
 	}
-	
-	private void initLooper(){
+
+	private void initLooper() {
 		looper.setTargetUPS(30);
 		looper.start();
 	}
-	
-	private void initDnD(){
+
+	private void initDnD() {
 		/*
-		 * Click to start drag
-		 * Allow to drop anywhere
-		 * If dropping fails, return object to drag start  coordinates
-		 * Allow only one single dragged object at a time;
-		 * Enable dnd manager
+		 * Click to start drag Allow to drop anywhere If dropping fails, return
+		 * object to drag start coordinates Allow only one single dragged object
+		 * at a time; Enable dnd manager
 		 * 
 		 * Add manager to the scene
-		 * */
+		 */
 		dndm.setDragOnOver(false);
 		dndm.setDropAreaOnly(false);
 		dndm.setReturnOnDropFail(true);
@@ -98,9 +97,8 @@ public class Tamaryu {
 		dndm.setEnabled(true);
 		scene.setDnDManager(dndm);
 	}
-	
-	private void destroy()
-	{
+
+	private void destroy() {
 		AudioMaster.killAllData();
 	}
 

@@ -20,12 +20,6 @@ public class HelpButtons extends TRGLImageView {
 		this.setPosition(0, 0, -15);
 		initButtons(s);
 		this.setFixedPosition(FIXED_POS_CENTER);
-		
-		//Sound laden
-		String[] audios = new String[2];
-		audios[0] =  "res/sound/Blob1.wav";
-		audios[1] =  "res/sound/Drip1.wav";
-		AudioMaster.loadAudioFiles(audios);
 	}
 
 	private TRTextButton createButton(String str) {
@@ -38,16 +32,16 @@ public class HelpButtons extends TRGLImageView {
 		l.addStateChangeAction(TRTextButton.MOUSE_ENTER_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				
+
 				AudioMaster.playSource(0);
 				l.setRotation(0, 0, 10);
 			}
 		});
-		
+
 		l.addStateChangeAction(TRTextButton.MOUSE_LEAVE_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				
+
 				AudioMaster.stopSource(0);
 				l.setRotation(0, 0, 0);
 			}
@@ -66,28 +60,28 @@ public class HelpButtons extends TRGLImageView {
 				l.increasePos(-10, 0, 0);
 			}
 		});
-		
-		return  l;
-	}
 
+		return l;
+	}
 
 	private void initButtons(TRScene s) {
 
-//backButton
+		// backButton
 		TRTextButton backB = createButton(LanguageTranslator.getString("back"));
-		backB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+		backB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
 			@Override
 			public void run() {
 				AudioMaster.playSource(1);
 				TRGameStateManager.setState(7);
 				TRGameStateManager.reset();
-			}});
+			}
+		});
 		this.addComponent(backB);
 		s.addMouseListener(backB);
-		
-		//ka was das ist
-		System.out.println("GW / GH: "+gw+" / "+gh);
+
+		// ka was das ist
+		System.out.println("GW / GH: " + gw + " / " + gh);
 
 		for (IRenderable r : this.components) {
 			// System.out.println("Set Alignment!");
@@ -98,6 +92,5 @@ public class HelpButtons extends TRGLImageView {
 
 		this.setSize(gw, gh);
 	}
-
 
 }

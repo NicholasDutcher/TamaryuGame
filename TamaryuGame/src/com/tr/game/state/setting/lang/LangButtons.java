@@ -20,11 +20,11 @@ public class LangButtons extends TRGLImageView {
 		this.setPosition(0, 0, -15);
 		initButtons(s);
 		this.setFixedPosition(FIXED_POS_CENTER);
-		
-		//Sound laden
+
+		// Sound laden
 		String[] audios = new String[2];
-		audios[0] =  "res/sound/Blob1.wav";
-		audios[1] =  "res/sound/Drip1.wav";
+		audios[0] = "res/sound/Blob1.wav";
+		audios[1] = "res/sound/Drip1.wav";
 		AudioMaster.loadAudioFiles(audios);
 	}
 
@@ -38,16 +38,16 @@ public class LangButtons extends TRGLImageView {
 		l.addStateChangeAction(TRTextButton.MOUSE_ENTER_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				
+
 				AudioMaster.playSource(0);
 				l.setRotation(0, 0, 10);
 			}
 		});
-		
+
 		l.addStateChangeAction(TRTextButton.MOUSE_LEAVE_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				
+
 				AudioMaster.stopSource(0);
 				l.setRotation(0, 0, 0);
 			}
@@ -66,56 +66,56 @@ public class LangButtons extends TRGLImageView {
 				l.increasePos(-10, 0, 0);
 			}
 		});
-		
-		return  l;
-	}
 
+		return l;
+	}
 
 	private void initButtons(TRScene s) {
 
-//backButton
+		// backButton
 		TRTextButton backB = createButton(LanguageTranslator.getString("back"));
-		backB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+		backB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
 			@Override
 			public void run() {
 				AudioMaster.playSource(1);
 				TRGameStateManager.setState(7);
-				TRGameStateManager.reset();
-			}});
+				//TRGameStateManager.reset();
+			}
+		});
 		this.addComponent(backB);
 		s.addMouseListener(backB);
-		
+		gh+=10;
 
-//setGermanButton
+		// setGermanButton
 		TRTextButton deB = createButton(LanguageTranslator.getString("german"));
-		deB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+		deB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
 			@Override
 			public void run() {
-				AudioMaster.playSource(1);
-				LanguageTranslator.changeLanguage("de");	
+				//AudioMaster.playSource(1);
+				LanguageTranslator.changeLanguage("de");
 				TRGameStateManager.reset();
-			}});
+			}
+		});
 		this.addComponent(deB);
 		s.addMouseListener(deB);
 
-//setEnglishButton
+		// setEnglishButton
 		TRTextButton enB = createButton(LanguageTranslator.getString("german"));
-		enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable(){
+		enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
 			@Override
 			public void run() {
-				AudioMaster.playSource(1);
-				LanguageTranslator.changeLanguage("en");	
+				//AudioMaster.playSource(1);
+				LanguageTranslator.changeLanguage("en");
 				TRGameStateManager.reset();
-			}});
+			}
+		});
 		this.addComponent(enB);
 		s.addMouseListener(enB);
 
-		
-		
-		System.out.println("GW / GH: "+gw+" / "+gh);
+		System.out.println("GW / GH: " + gw + " / " + gh);
 
 		for (IRenderable r : this.components) {
 			// System.out.println("Set Alignment!");
