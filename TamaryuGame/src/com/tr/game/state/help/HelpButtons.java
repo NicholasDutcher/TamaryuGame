@@ -22,8 +22,9 @@ public class HelpButtons extends TRGLImageView {
 		this.setFixedPosition(FIXED_POS_CENTER);
 		
 		//Sound laden
-		String[] audios = new String[1];
-		audios[0] =  "res/sound/Apple1.wav";
+		String[] audios = new String[2];
+		audios[0] =  "res/sound/Blob1.wav";
+		audios[1] =  "res/sound/Drip1.wav";
 		AudioMaster.loadAudioFiles(audios);
 	}
 
@@ -77,6 +78,7 @@ public class HelpButtons extends TRGLImageView {
 
 			@Override
 			public void run() {
+				AudioMaster.playSource(1);
 				TRGameStateManager.setState(7);
 				TRGameStateManager.reset();
 			}});
