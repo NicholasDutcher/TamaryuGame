@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRLabel;
 import com.tr.engine.components.TRTextButton;
+import com.tr.engine.grf.Color;
 import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLImageView;
@@ -37,25 +38,23 @@ public class MenueButtons extends TRGLImageView {
 		l.addStateChangeAction(TRTextButton.MOUSE_ENTER_ACTION, new Runnable() {
 			@Override
 			public void run() {
-
+				l.setColor(new Color(255f/255f, 153f/255f, 18f/255f, 0f));
 				AudioMaster.playSource(0);
-				l.setRotation(0, 0, 10);
 			}
 		});
 
 		l.addStateChangeAction(TRTextButton.MOUSE_LEAVE_ACTION, new Runnable() {
 			@Override
 			public void run() {
-
+				l.setColor(new Color(255f/255f, 255/255f, 255/255f, 0f));
 				AudioMaster.stopSource(0);
-				l.setRotation(0, 0, 0);
 			}
 		});
 
 		l.addStateChangeAction(TRTextButton.MOUSE_DOWN_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				l.increasePos(10, 0, 0);
+				l.setColor(new Color(205f/255f, 102f/255f, 9f/255f, 0f));
 			}
 		});
 

@@ -59,6 +59,7 @@ class LoginInputs {
 		temp.addStateChangeAction(TRTextButton.MOUSE_ENTER_ACTION, new Runnable() {
 			@Override
 			public void run() {
+				temp.setColor(new Color(255f/255f, 153f/255f, 18f/255f, 0f));
 				AudioMaster.playSource(0);
 			}
 		});
@@ -66,7 +67,7 @@ class LoginInputs {
 		temp.addStateChangeAction(TRTextButton.MOUSE_LEAVE_ACTION, new Runnable() {
 			@Override
 			public void run() {
-
+				temp.setColor(new Color(255f/255f, 255/255f, 255/255f, 0f));
 				AudioMaster.stopSource(0);
 			}
 		});
@@ -74,7 +75,7 @@ class LoginInputs {
 		temp.addStateChangeAction(TRTextButton.MOUSE_DOWN_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				temp.increasePos(10, 0, 0);
+				temp.setColor(new Color(205f/255f, 102f/255f, 9f/255f, 0f));
 			}
 		});
 
