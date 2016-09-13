@@ -1,5 +1,3 @@
-- Audio bug ? (abklären und fixen)
-- TextTranslator (english) ?
 - positionierungen für animation (wyvern)
 - DragableIcon erstellen
 - Key Listener erstellen
@@ -11,3 +9,4 @@
 - bild für ingame dialog
 
 - minigame erstellen ???
+- wenn zeit: reservierte audiosources, die nicht gecleart werden (damit clicksounds nicht durch zu schnelle ladezeit übersprungen werden.)
