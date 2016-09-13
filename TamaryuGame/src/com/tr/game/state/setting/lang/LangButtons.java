@@ -1,7 +1,5 @@
 package com.tr.game.state.setting.lang;
 
-import java.util.ArrayList;
-
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRLabel;
 import com.tr.engine.components.TRTextButton;
@@ -21,12 +19,6 @@ public class LangButtons extends TRGLImageView {
 		this.setPosition(0, 0, -15);
 		initButtons(s);
 		this.setFixedPosition(FIXED_POS_CENTER);
-
-		// Sound laden
-		String[] audios = new String[2];
-		audios[0] = "res/sound/Blob1.wav";
-		audios[1] = "res/sound/Drip1.wav";
-		AudioMaster.loadAudioFiles(audios);
 	}
 
 	private TRTextButton createButton(String str) {
@@ -39,7 +31,7 @@ public class LangButtons extends TRGLImageView {
 		l.addStateChangeAction(TRTextButton.MOUSE_ENTER_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				l.setColor(new Color(255f/255f, 153f/255f, 18f/255f, 0f));
+				l.setColor(new Color(255f / 255f, 153f / 255f, 18f / 255f, 0f));
 				AudioMaster.playSource(0);
 			}
 		});
@@ -47,7 +39,7 @@ public class LangButtons extends TRGLImageView {
 		l.addStateChangeAction(TRTextButton.MOUSE_LEAVE_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				l.setColor(new Color(255f/255f, 255/255f, 255/255f, 0f));
+				l.setColor(new Color(255f / 255f, 255 / 255f, 255 / 255f, 0f));
 				AudioMaster.stopSource(0);
 			}
 		});
@@ -55,7 +47,7 @@ public class LangButtons extends TRGLImageView {
 		l.addStateChangeAction(TRTextButton.MOUSE_DOWN_ACTION, new Runnable() {
 			@Override
 			public void run() {
-				l.setColor(new Color(205f/255f, 102f/255f, 9f/255f, 0f));
+				l.setColor(new Color(205f / 255f, 102f / 255f, 9f / 255f, 0f));
 			}
 		});
 
@@ -70,7 +62,6 @@ public class LangButtons extends TRGLImageView {
 	}
 
 	private void initButtons(TRScene s) {
-
 		// backButton
 		TRTextButton backB = createButton(LanguageTranslator.getString("back"));
 		backB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
@@ -79,12 +70,11 @@ public class LangButtons extends TRGLImageView {
 			public void run() {
 				AudioMaster.playSource(1);
 				TRGameStateManager.setState(7);
-				//TRGameStateManager.reset();
+				// TRGameStateManager.reset();
 			}
 		});
 		this.addComponent(backB);
-		s.addMouseListener(backB);
-		gh+=10;
+		gh += 10;
 
 		// setGermanButton
 		TRTextButton deB = createButton(LanguageTranslator.getString("german"));
@@ -92,38 +82,31 @@ public class LangButtons extends TRGLImageView {
 
 			@Override
 			public void run() {
-				//AudioMaster.playSource(1);
-				if(!LanguageTranslator.getCurrentLanguage().contains("de"))
-				{
+				// AudioMaster.playSource(1);
+				if (!LanguageTranslator.getCurrentLanguage().contains("de")) {
 					LanguageTranslator.changeLanguage("de");
 					TRGameStateManager.reset();
 				}
 			}
 		});
 		this.addComponent(deB);
-		s.addMouseListener(deB);
 
 		// setEnglishButton
-		TRTextButton enB = createButton(LanguageTranslator.getString("english"));
+		TRTextButton enB = createButton(LanguageTranslator.getString("german"));
 		enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
 			@Override
-			public void run() {
-				//AudioMaster.playSource(1);
-				if(!LanguageTranslator.getCurrentLanguage().contains("en"))
-				{
+			public void run() { 
+				// AudioMaster.playSource(1);
+				if (!LanguageTranslator.getCurrentLanguage().contains("en")) {
 					LanguageTranslator.changeLanguage("en");
 					TRGameStateManager.reset();
 				}
 			}
 		});
 		this.addComponent(enB);
-		s.addMouseListener(enB);
 
-		System.out.println("GW / GH: " + gw + " / " + gh);
-
-		for (IRenderable r : this.components) {
-			// System.out.println("Set Alignment!");
+		for (IRenderable r : this.inComponents) {
 			TRTextButton l = (TRTextButton) r;
 			l.setSize(gw, r.getHeight());
 			l.setAlignment(TRLabel.CENTER);

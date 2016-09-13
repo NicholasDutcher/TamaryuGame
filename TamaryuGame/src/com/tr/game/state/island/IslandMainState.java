@@ -21,7 +21,7 @@ public class IslandMainState extends TRAbstractGameState {
 
 	public IslandMainState() {
 		this(TamaryuGameStateFactory.ISLAND_STATE, "ISLAND_STATE");
-		
+		d1.loadAnimation("lookRight");
 	}
 
 	public IslandMainState(int id, String name) {

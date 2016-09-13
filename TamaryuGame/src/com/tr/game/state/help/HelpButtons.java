@@ -77,10 +77,6 @@ public class HelpButtons extends TRGLImageView {
 			}
 		});
 		this.addComponent(backB);
-		s.addMouseListener(backB);
-
-		// ka was das ist
-		System.out.println("GW / GH: " + gw + " / " + gh);
 
 		for (IRenderable r : this.components) {
 			// System.out.println("Set Alignment!");

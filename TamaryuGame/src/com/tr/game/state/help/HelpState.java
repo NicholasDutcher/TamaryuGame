@@ -6,6 +6,7 @@ import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
 import com.tr.engine.obj.state.TRAbstractGameState;
 import com.tr.engine.sound.AudioMaster;
+import com.tr.game.core.states.TamaryuGameStateFactory;
 import com.tr.game.state.help.HelpButtons;
 
 public class HelpState extends TRAbstractGameState {
@@ -14,7 +15,7 @@ public class HelpState extends TRAbstractGameState {
 	private HelpButtons buttons = null;
 
 	public HelpState() {
-		this(9, "HELP");
+		this(TamaryuGameStateFactory.HELP_STATE, "HELP");
 	}
 
 	public HelpState(int id, String name) {

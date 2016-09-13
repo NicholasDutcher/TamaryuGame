@@ -21,7 +21,7 @@ public class Tamaryu {
 
 	// game manager
 	protected TRGameLooper looper = new TRGameLooper();
-	protected TRDragAndDropManager dndm = new TRDragAndDropManager();
+	public static TRDragAndDropManager dndm = new TRDragAndDropManager();
 	protected TRGameStateFactory gsf = new TamaryuGameStateFactory();
 
 	public Tamaryu() {

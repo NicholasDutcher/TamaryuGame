@@ -6,6 +6,7 @@ import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
 import com.tr.engine.obj.state.TRAbstractGameState;
 import com.tr.engine.sound.AudioMaster;
+import com.tr.game.core.states.TamaryuGameStateFactory;
 
 public class GameMenueState extends TRAbstractGameState {
 
@@ -13,7 +14,7 @@ public class GameMenueState extends TRAbstractGameState {
 	private MenueButtons buttons = null;
 
 	public GameMenueState() {
-		this(0, "Game_Menue");
+		this(TamaryuGameStateFactory.SETTING_STATE, "Game_Menue");
 	}
 
 	public GameMenueState(int id, String name) {

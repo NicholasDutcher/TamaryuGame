@@ -6,13 +6,14 @@ import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
 import com.tr.engine.obj.state.TRAbstractGameState;
 import com.tr.engine.sound.AudioMaster;
+import com.tr.game.core.states.TamaryuGameStateFactory;
 
 public class LoginState extends TRAbstractGameState {
 	private TRGLImageView bg;
 	private LoginInputs userinterface;
 
 	public LoginState() {
-		this(0, "Login");
+		this(TamaryuGameStateFactory.LOGIN_STATE, "Login");
 	}
 
 	public LoginState(int id, String name) {

@@ -1,9 +1,7 @@
 - positionierungen für animation (wyvern)
-- DragableIcon erstellen
 - Key Listener erstellen
 - InputField erstellen 
 - Bild für InputField
-- onClose über scene aufrufbar machen
 - achievements
 - ingame dialog
 - bild für ingame dialog

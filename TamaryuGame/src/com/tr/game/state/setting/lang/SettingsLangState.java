@@ -6,6 +6,7 @@ import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
 import com.tr.engine.obj.state.TRAbstractGameState;
 import com.tr.engine.sound.AudioMaster;
+import com.tr.game.core.states.TamaryuGameStateFactory;
 
 public class SettingsLangState extends TRAbstractGameState {
 
@@ -13,7 +14,7 @@ public class SettingsLangState extends TRAbstractGameState {
 	private LangButtons buttons = null;
 
 	public SettingsLangState() {
-		this(8, "SETTINGS_LANG");
+		this(TamaryuGameStateFactory.SETTING_LANG_STATE, "SETTINGS_LANG");
 	}
 
 	public SettingsLangState(int id, String name) {

@@ -110,8 +110,6 @@ class LoginInputs {
 		this.container.addComponent(loginButton);
 		modfiyTotalValues(loginButton);
 
-		s.addMouseListener(loginButton);
-
 		container.setSize(totalWidth, totalHeight);
 		container.setFixedPosition(IRenderable.FIXED_POS_CENTER);
 

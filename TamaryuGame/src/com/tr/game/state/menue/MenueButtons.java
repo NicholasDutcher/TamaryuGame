@@ -77,13 +77,11 @@ public class MenueButtons extends TRGLImageView {
 
 			@Override
 			public void run() {
-				//AudioMaster.playSource(1);
+				System.exit(0);
 				// beenden
-				TRGameStateManager.reset();
 			}
 		});
 		this.addComponent(qB);
-		//s.addMouseListener(qB);
 		gh += 20;
 
 		// helpButton
@@ -123,7 +121,7 @@ public class MenueButtons extends TRGLImageView {
 
 		//System.out.println("GW / GH: " + gw + " / " + gh);
 
-		for (IRenderable r : this.components) {
+		for (IRenderable r : this.inComponents) {
 			// System.out.println("Set Alignment!");
 			TRTextButton l = (TRTextButton) r;
 			l.setSize(gw, r.getHeight());
