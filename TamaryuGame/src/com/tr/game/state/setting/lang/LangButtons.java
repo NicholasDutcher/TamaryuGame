@@ -94,8 +94,11 @@ public class LangButtons extends TRGLImageView {
 			@Override
 			public void run() {
 				//AudioMaster.playSource(1);
-				LanguageTranslator.changeLanguage("de");
-				TRGameStateManager.reset();
+				if(!LanguageTranslator.getCurrentLanguage().contains("de"))
+				{
+					LanguageTranslator.changeLanguage("de");
+					TRGameStateManager.reset();
+				}
 			}
 		});
 		this.addComponent(deB);
@@ -108,8 +111,11 @@ public class LangButtons extends TRGLImageView {
 			@Override
 			public void run() {
 				//AudioMaster.playSource(1);
-				LanguageTranslator.changeLanguage("en");
-				TRGameStateManager.reset();
+				if(!LanguageTranslator.getCurrentLanguage().contains("en"))
+				{
+					LanguageTranslator.changeLanguage("en");
+					TRGameStateManager.reset();
+				}
 			}
 		});
 		this.addComponent(enB);
