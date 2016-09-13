@@ -36,7 +36,7 @@ public class GameMenueState extends TRAbstractGameState {
 
 	@Override
 	public void unload(TRScene scene, TRGameLooper gl) {
-		AudioMaster.killAllData();
+		AudioMaster.clearData();
 		removeComponents(scene);
 	}
 

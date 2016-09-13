@@ -5,6 +5,7 @@ import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
 import com.tr.engine.obj.state.TRAbstractGameState;
+import com.tr.engine.sound.AudioMaster;
 
 public class SettingsLangState extends TRAbstractGameState {
 
@@ -25,10 +26,17 @@ public class SettingsLangState extends TRAbstractGameState {
 		scene.clearScene();
 		gl.clear();
 		addComponents(scene);
+		
+		//Sound laden
+		String[] audios = new String[2];
+		audios[0] = "res/sound/Blob1.wav";
+		audios[1] = "res/sound/Drip1.wav";
+		AudioMaster.loadAudioFiles(audios);
 	}
 
 	@Override
 	public void unload(TRScene scene, TRGameLooper gl) {
+		AudioMaster.clearData();
 		removeComponents(scene);
 	}
 

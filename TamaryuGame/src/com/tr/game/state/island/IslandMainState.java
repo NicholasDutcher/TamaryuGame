@@ -3,6 +3,7 @@ package com.tr.game.state.island;
 import com.tr.engine.core.TRGameLooper;
 import com.tr.engine.grf.TRScene;
 import com.tr.engine.obj.state.TRAbstractGameState;
+import com.tr.engine.sound.AudioMaster;
 import com.tr.game.core.states.TamaryuGameStateFactory;
 
 import demo.tama.BabyWyvern;
@@ -24,6 +25,7 @@ public class IslandMainState extends TRAbstractGameState {
 
 	@Override
 	public void load(TRScene scene, TRGameLooper gl) {
+		//AudioMaster.loadAudioFiles(audioFilePaths);
 		scene.addComponent(menue.getImage());
 		scene.addComponent(bg);
 		scene.addComponent(d1);
@@ -33,6 +35,7 @@ public class IslandMainState extends TRAbstractGameState {
 
 	@Override
 	public void unload(TRScene scene, TRGameLooper gl) {
+		AudioMaster.clearData();
 		scene.removeComponent(menue.getImage());
 		scene.removeComponent(bg);
 		scene.removeComponent(d1);

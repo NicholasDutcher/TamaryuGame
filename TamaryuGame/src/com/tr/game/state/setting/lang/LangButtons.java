@@ -102,7 +102,7 @@ public class LangButtons extends TRGLImageView {
 		s.addMouseListener(deB);
 
 		// setEnglishButton
-		TRTextButton enB = createButton(LanguageTranslator.getString("german"));
+		TRTextButton enB = createButton(LanguageTranslator.getString("english"));
 		enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
 			@Override
