@@ -1,4 +1,4 @@
-package com.tr.game.core;
+package com.tr.game.objects;
 
 import com.tr.engine.gameobject.Actor;
 
