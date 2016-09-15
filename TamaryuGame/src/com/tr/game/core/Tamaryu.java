@@ -91,7 +91,7 @@ public class Tamaryu {
 		 * Add manager to the scene
 		 */
 		dndm.setDragOnOver(false);
-		dndm.setDropAreaOnly(false);
+		dndm.setDropAreaOnly(true);
 		dndm.setReturnOnDropFail(true);
 		dndm.setSingleDrag(true);
 		dndm.setEnabled(true);

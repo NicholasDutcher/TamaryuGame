@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRTextButton;
 import com.tr.engine.components.gl.TRGLLabel;
+import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLAnimationView;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
@@ -32,6 +33,7 @@ public class IslandMenueAnimation extends TRGLImageView {
 		this.setSize(SCROLL_WIDTH, SCROLL_HEAD_HEIGHT);
 		this.setZ(10);
 		init();
+		//this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0, 1,0,0,1));
 	}
 
 	public void init() {
@@ -134,7 +136,7 @@ public class IslandMenueAnimation extends TRGLImageView {
 			a.posYFlag = true;
 			a.posY = SCROLL_BODY_MIN_HEIGHT - h;
 
-			System.out.println("Frame " + i + ": ah = " + a.h + "; Tex h = " + h);
+			//System.out.println("Frame " + i + ": ah = " + a.h + "; Tex h = " + h);
 
 			f.addAction(a);
 			frames.add(f);

@@ -1,17 +1,14 @@
 package demo.tama;
 
-import com.jogamp.opengl.util.packrect.Rect;
 import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.gl.TRGLAnimationView;
 import com.tr.engine.img.TRImage;
 import com.tr.engine.img.ani.TRAnimation;
 import com.tr.engine.img.ani.TRFrame;
 import com.tr.engine.img.ani.TRFrameAction;
-import com.tr.engine.input.ITRMouseListener;
 import com.tr.engine.input.TRDroparea;
-import com.tr.engine.input.TRMouseEvent;
 
-public class BabyWyvern extends TRGLAnimationView{
+public class BabyWyvern extends TRGLAnimationView implements TRDroparea{
 
 	public BabyWyvern(int zIndex) {
 		super();
@@ -23,10 +20,12 @@ public class BabyWyvern extends TRGLAnimationView{
 		createLookRightAni();
 		this.loadDefault();
 		this.start();
+		//this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0, 1, 0, 0, 1));
 	}
+	
 
 	private void buildAni() {
-		this.setSize(600, 600);
+		this.setSize(560, 800);
 		TRGLAnimationView v = null;
 
 		// add body
@@ -194,6 +193,15 @@ public class BabyWyvern extends TRGLAnimationView{
 		
 		ani.setInitFram(frame);
 		this.addAnimation("lookRight", ani);
+	}
+
+	@Override
+	public boolean drop(IRenderable o) {
+		if(o instanceof Pear){
+			System.out.println("dropping pear");
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -1,53 +1,70 @@
 package com.tr.game.state.login;
 
+import com.jogamp.newt.event.KeyEvent;
 import com.tr.engine.components.ITRInputField;
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRLabel;
 import com.tr.engine.components.TRTextButton;
+import com.tr.engine.gameobject.AbstractGameObject;
 import com.tr.engine.grf.Color;
 import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLImageView;
-import com.tr.engine.obj.state.TRGameStateFactory;
+import com.tr.engine.img.TRImage;
+import com.tr.engine.input.ITRKeyListener;
+import com.tr.engine.input.TRKeyEvent;
 import com.tr.engine.obj.state.TRGameStateManager;
 import com.tr.engine.sound.AudioMaster;
 import com.tr.game.core.states.TamaryuGameStateFactory;
 import com.tr.util.LanguageTranslator;
 
-class LoginInputs {
-	private TRLabel usernameLabel;
-	private TRLabel passwordLabel;
+class LoginInputs extends AbstractGameObject implements ITRKeyListener{
 
 	private ITRInputField username;
 	private ITRInputField password;
 
 	private TRTextButton loginButton;
+	private boolean stateChange = false;
 
 	private int totalHeight;
 	private int totalWidth;
 
 	private TRGLImageView container;
 
+
 	public LoginInputs(TRScene s) {
-		this.usernameLabel = TRComponentManager.getLabel(LanguageTranslator.getString("username"));
-		this.passwordLabel = TRComponentManager.getLabel(LanguageTranslator.getString("password"));
+		super(0,0,0, 0);
 
 		this.username = TRComponentManager.getInputField();
 		this.password = TRComponentManager.getInputField();
+		username.setAlignment(TRLabel.CENTER);
+		password.setAlignment(TRLabel.CENTER);
+		username.setColor(new Color(0,0,0,0));
+		password.setColor(new Color(0,0,0,0));
+		username.setText("a");
+		username.setSize(250, 38);
+		username.setText("");
+		username.setPosition(150, 155, 8);
+		password.setText("a");
+		password.setSize(250, 38);
+		password.setText("");
+		password.setPosition(150, 97, 8);
 
 		this.loginButton = createLoginButton();
 
-		this.totalHeight = 0;
-		this.totalWidth = 0;
 
 		this.container = new TRGLImageView();
-
+		container.setImage(new TRImage("login_bg", "login_dialog", "png", "/img", 0, 0, 0, 510, 314, 510, 314));
+		
 		initLoginInput(s);
 	}
-
-	private ITRInputField createInput() {
-		return null;
+	
+	public void update(long time){
+		if(stateChange){
+			TRGameStateManager.setState(TamaryuGameStateFactory.SETTING_STATE);
+		}
 	}
+
 
 	private TRTextButton createLoginButton() {
 		final TRTextButton temp = TRComponentManager.getTxtButton(LanguageTranslator.getString("login"));
@@ -84,7 +101,7 @@ class LoginInputs {
 			public void run() {
 
 				AudioMaster.playSource(0);
-				TRGameStateManager.setState(TamaryuGameStateFactory.SETTING_STATE);
+				stateChange = true;
 			}
 		});
 
@@ -95,7 +112,7 @@ class LoginInputs {
 		int x = 0;
 		int y = 0;
 
-		this.container.addComponent(usernameLabel);
+		/*this.container.addComponent(usernameLabel);
 		modfiyTotalValues(usernameLabel);
 
 		this.container.addComponent(username);
@@ -105,15 +122,20 @@ class LoginInputs {
 		modfiyTotalValues(passwordLabel);
 
 		this.container.addComponent(password);
-		modfiyTotalValues(password);
+		modfiyTotalValues(password);*/
 
+		loginButton.setSize(510, loginButton.getHeight());
+		loginButton.setAlignment(TRLabel.CENTER);
+		loginButton.setPosition(0, 25, 4);
 		this.container.addComponent(loginButton);
-		modfiyTotalValues(loginButton);
+		this.container.addComponent(username);
+		this.container.addComponent(password);
+		//modfiyTotalValues(loginButton);
 
-		container.setSize(totalWidth, totalHeight);
+		container.setSize(510, 314);
 		container.setFixedPosition(IRenderable.FIXED_POS_CENTER);
 
-		x = (totalWidth - loginButton.getWidth()) / 2;
+		/*x = (totalWidth - loginButton.getWidth()) / 2;
 		loginButton.setPosition(x, y, 1);
 		y = y + loginButton.getHeight();
 
@@ -127,7 +149,7 @@ class LoginInputs {
 		// username.setPosition(0, 0, 1);
 		y = y + usernameLabel.getHeight();
 
-		usernameLabel.setPosition(x, y, 1);
+		usernameLabel.setPosition(x, y, 1);*/
 	}
 
 	private void modfiyTotalValues(IRenderable rend) {
@@ -140,5 +162,19 @@ class LoginInputs {
 
 	public TRGLImageView getContainer() {
 		return this.container;
+	}
+
+	@Override
+	public void keyPressed(TRKeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(TRKeyEvent e) {
+		if(e.e.getKeyCode() == KeyEvent.VK_ENTER){
+			AudioMaster.playSource(0);
+			this.stateChange = true;
+		}
 	}
 }
