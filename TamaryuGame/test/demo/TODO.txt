@@ -1,7 +1,4 @@
-- positionierungen für animation (wyvern)
-- Key Listener erstellen
-- InputField erstellen 
-- Bild für InputField
+- InputField erstellen /
 - achievements
 - ingame dialog
 - bild für ingame dialog

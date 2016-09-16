@@ -1,6 +1,11 @@
 package com.tr.game.objects;
 
 import com.tr.engine.gameobject.Actor;
+import com.tr.engine.grf.Color;
+import com.tr.engine.grf.IRenderable;
+import com.tr.engine.grf.TRRenderPropertie;
+import com.tr.engine.grf.gl.TRGLAnimationView;
+import com.tr.gl.core.Point3D;
 
 public class Dragon extends Actor {
 
@@ -8,46 +13,59 @@ public class Dragon extends Actor {
 	public static final boolean FEMALE = false;
 	public static final long ROUNDTIME = 3000;
 
-	private String name = "Dragon";
-	private String parent1;
-	private String parent2;
+	protected String name = "Dragon";
+	protected String parent1;
+	protected String parent2;
+
+	protected int id;
+	protected int hp = 0, mp = 0, stamina = 0;
+	protected int hpMax = 0, mpMax = 0, staminaMax = 0;
+	protected int baseHp = 0, baseMp = 0, baseStamina = 0;
+	protected int hpRank, mpRank, staminaRank, attackRank, defenseRank, speedRank;
+	protected int attack = 0, defense = 0, speed = 0;
+	protected int baseAttack = 0, baseDefense = 0, baseSpeed = 0;
+	protected int mood = 0, hunger = 0, thirst = 0;
+	protected int type, stage;
+	protected boolean sex;
+
+	protected float fatigue, sickness;
+	protected float weight, size;
+	protected long birthdate;
+
+	protected long roundStarttime = 0;
+	protected boolean newRound = false;
 	
-	private int id;
-	private int hp = 0, mp = 0, stamina = 0;
-	private int hpMax = 0, mpMax = 0, staminaMax = 0;
-	private int baseHp = 0, baseMp = 0, baseStamina = 0;
-	private int hpRank, mpRank, staminaRank, attackRank, defenseRank, speedRank;
-	private int attack = 0, defense = 0, speed = 0;
-	private int baseAttack = 0, baseDefense = 0, baseSpeed = 0;
-	private int mood = 0, hunger = 0, thirst = 0;
-	private int type, stage;
-	private boolean sex;
+	protected boolean canMove = true;
+	protected boolean canFly = true;
+	protected boolean canSwim = false;
+	
+	protected boolean idle = true;
+	protected boolean moving = false;
+	protected boolean flying = false;
+	protected boolean selected = false;
+	protected Point3D targetPos = new Point3D(0,0,0);
 
-	private float fatigue, sickness;
-	private float weight, size;
-	private long birthdate;
-
-	private long roundStarttime = 0;
-	private boolean newRound = false;
+	protected Color dragonColor, eyeColor, eyeColor2;
 
 	public Dragon() { // full random 1-10, no overall caps
+		super(0, 0, null);
 		// this.id = from server?
-		this.baseHp = (int) (Math.random() * 10f);
+		this.baseHp = (int) (Math.random() * 5f + 5);
 		this.hp = baseHp;
 		this.hpRank = baseHp / 2;
-		this.baseMp = (int) (Math.random() * 10f);
+		this.baseMp = (int) (Math.random() * 5f + 5);
 		this.mp = baseMp;
 		this.mpRank = baseMp / 2;
-		this.baseStamina = (int) (Math.random() * 10f);
+		this.baseStamina = (int) (Math.random() * 5f + 5);
 		this.stamina = baseStamina;
 		this.staminaRank = baseStamina / 2;
-		this.baseAttack = (int) (Math.random() * 10f);
+		this.baseAttack = (int) (Math.random() * 5f + 5);
 		this.attack = baseAttack;
 		this.attackRank = baseAttack / 2;
-		this.baseDefense = (int) (Math.random() * 10f);
+		this.baseDefense = (int) (Math.random() * 5f + 5);
 		this.defense = baseDefense;
 		this.defenseRank = baseDefense / 2;
-		this.baseSpeed = (int) (Math.random() * 10f);
+		this.baseSpeed = (int) (Math.random() * 5f + 5);
 		this.speed = baseSpeed;
 		this.speedRank = baseSpeed / 2;
 
@@ -69,6 +87,7 @@ public class Dragon extends Actor {
 	}
 
 	public Dragon(int hpR, int mpR, int staminaR, int attackR, int defenseR, int speedR, String p1, String p2) {
+		super(0, 0, null);
 		// this.id = from server?
 		this.parent1 = p1;
 		this.parent2 = p2;
@@ -110,6 +129,7 @@ public class Dragon extends Actor {
 
 	// Dragon with values
 	public Dragon(int hp, int mp, int stamina, int attack, int defense, int speed) {
+		super(0, 0, null);
 		// this.id = from server?
 		this.hp = hp;
 		this.mp = mp;
@@ -407,8 +427,8 @@ public class Dragon extends Actor {
 		return new Dragon(hp, mp, stamina, attack, defense, speed);
 
 	}
-	
-	//makes rank vary when breeding
+
+	// makes rank vary when breeding
 	public int rankDivergence() {
 		double up = Math.random();
 		if (up > 0.90) {
@@ -417,34 +437,34 @@ public class Dragon extends Actor {
 			return 1;
 		} else if (up > 0.40) {
 			return 0;
-		} else if (up > 0.10){
+		} else if (up > 0.10) {
 			return -1;
 		} else {
 			return -2;
 		}
 
 	}
-	//method for trying if the
-	//checked integer is within the limits of the ranks
-	public int checkRank(int i){
+
+	// method for trying if the
+	// checked integer is within the limits of the ranks
+	public int checkRank(int i) {
 		int topRank = 5;
 		int botRank = 0;
 
-		if (i > topRank){
+		if (i > topRank) {
 			return topRank;
-		} else if (i > botRank){
+		} else if (i > botRank) {
 			return i;
 		} else {
 			return botRank;
 		}
 	}
-	
+
 	/*
-	 * approach of Breed3
-	 * but this only affects the rank.
+	 * approach of Breed3 but this only affects the rank.
 	 */
 	public Dragon breed3b(Dragon that) {
-		
+
 		int hp = (this.getHpRank() + that.getHpRank()) / 2 + rankDivergence();
 		hp = checkRank(hp);
 
@@ -459,8 +479,8 @@ public class Dragon extends Actor {
 		int speed = (this.getSpeedRank() + that.getSpeedRank()) / 2 + rankDivergence();
 		speed = checkRank(speed);
 
-		//return won't work properly
-		//since the constructor is inappropriate
+		// return won't work properly
+		// since the constructor is inappropriate
 		return new Dragon(hp, mp, stamina, attack, defense, speed, this.getName(), that.getName());
 	}
 
@@ -501,80 +521,171 @@ public class Dragon extends Actor {
 	public void die() { // details noch zu klären
 
 	}
-	
-	//reduce values based on passed time
-	public void statDecay(){
-		if(this.hunger > 0 && this.thirst > 0) this.hp += 5;
+
+	// reduce values based on passed time
+	public void statDecay() {
+		if (this.hunger > 0 && this.thirst > 0)
+			this.hp += 5;
 		this.mood += -1;
 		this.hunger += -1;
 		this.thirst += -1;
 	}
-	
-	//cut stats (negative to 0, cap at max)
-	public void correctStats(){
-		if(this.hp < 0){
+
+	// cut stats (negative to 0, cap at max)
+	public void correctStats() {
+		if (this.hp < 0) {
 			this.hp = 0;
-		}else if(this.hp > this.hpMax){
+		} else if (this.hp > this.hpMax) {
 			this.hp = this.hpMax;
 		}
-		
-		if(this.mp < 0){
+
+		if (this.mp < 0) {
 			this.mp = 0;
-		}else if(this.mp > this.mpMax){
+		} else if (this.mp > this.mpMax) {
 			this.mp = this.mpMax;
 		}
-		
-		if(this.stamina < 0){
+
+		if (this.stamina < 0) {
 			this.stamina = 0;
-		}else if(this.stamina > this.staminaMax){
+		} else if (this.stamina > this.staminaMax) {
 			this.stamina = this.staminaMax;
 		}
-		
-		if(this.attack < 0) this.attack = 0;
-		if(this.defense < 0) this.defense = 0;
-		if(this.speed < 0) this.speed = 0;
-		
-		if(this.mood < 0){
+
+		if (this.attack < 0)
+			this.attack = 0;
+		if (this.defense < 0)
+			this.defense = 0;
+		if (this.speed < 0)
+			this.speed = 0;
+
+		if (this.mood < 0) {
 			this.mood = 0;
-		}else if(this.mood > 100){
+		} else if (this.mood > 100) {
 			this.mood = 100;
 		}
 
-		if(this.hunger < 0){
+		if (this.hunger < 0) {
 			this.hunger = 0;
-		}else if(this.hunger > 100){
+		} else if (this.hunger > 100) {
 			this.hunger = 100;
 		}
 
-		if(this.thirst < 0){
+		if (this.thirst < 0) {
 			this.thirst = 0;
-		}else if(this.thirst > 100){
+		} else if (this.thirst > 100) {
 			this.thirst = 100;
 		}
 
 	}
 
-	public void update() {
-		long time = System.currentTimeMillis();
-		
-		
+	public void update(long tc) {
+		//System.out.println("Update 1");
+		long time = tc;
 
-		//idle animations
-		
+		// idle animations
+		updateAction(time);
+
 		if ((time - roundStarttime) > ROUNDTIME) {
 			roundStarttime = time;
 			newRound = true;
 		}
+		
 		// remaining update logic.
-		if(newRound) {
+		if (newRound) {
 			statDecay();
 			correctStats();
+			roundAction(time);
 		}
 		newRound = false;
-		
 
+	}
+	
+	protected void roundAction(long time){
+		// override me
+	}
+	
+	public void updateAction(long time){
+		// override me
 	}
 
 	// evtl save und load im drachen
+	
+	
+	public boolean onDrop(IRenderable r){
+		// TODO
+		return false;
+	}
+
+	// animation methods
+	public void setColor(Color c) {
+		this.dragonColor = c;
+		if (dragonColor != null) {
+			float r = c.r, g = c.g, b = c.b;
+			//System.out.println("Color (p): ["+r+", "+g+", "+b+"]");
+			getImage().setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_HSL_FILTER, 1, r, g, b, 1));
+			//System.out.println("Color: ["+r+", "+g+", "+b+"]");
+		} else {
+			getImage().setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_HSL_FILTER, 0, 0, 0, 0, 1));
+		}
+		setEyeColor(eyeColor);
+	}
+
+	public void setEyeColor(Color c) {
+		if(this.eyeColor != c){
+			calcSecondEyeColor(c, 12f);
+		}
+		this.eyeColor = c;
+		if (eyeColor != null) {
+			float r = c.r, g = c.g, b = c.b;
+			//System.out.println("Eye Color: ["+r+", "+g+", "+b+"]");
+			getImage().getComponentByName("head.eyes.open")
+					.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_HSL_FILTER, 1, r, g, b, 1));
+		} else {
+			getImage().getComponentByName("head.eyes.open")
+					.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_HSL_FILTER, 0, 0, 0, 0, 1));
+		}
+	}
+	
+	protected void calcSecondEyeColor(Color c, float step){
+		float r = c.r, g = c.g, b = c.b;
+		if (c.r <= 1 && c.g <= 1 && c.b <= 1 && c.a <= 1) {
+			r = r * 255f;
+			g = g * 255f;
+			b = b * 255f;
+		}
+		r += step; 
+		g += step; 
+		b += step;
+		r =  Math.max(Math.min(r, 255), 0);
+		g =  Math.max(Math.min(g, 255), 0);
+		b =  Math.max(Math.min(b, 255), 0);
+		
+		this.eyeColor2 = new Color(r/255f, g/255f, b/255f, 1);
+	}
+	
+	public void lookRight(){
+		((TRGLAnimationView) this.getImage()).loadAnimation("lookRight");
+		((TRGLAnimationView) this.getImage()).start();
+	}
+	
+	public void lookLeft(){
+		((TRGLAnimationView) this.getImage()).loadAnimation("lookLeft");
+		((TRGLAnimationView) this.getImage()).start();
+	}
+
+	public void closeEyes() {
+		((TRGLAnimationView) this.getImage().getComponentByName("head.eyes")).loadAnimation("closed");
+		((TRGLAnimationView) this.getImage().getComponentByName("head.eyes")).start();
+	}
+
+	public void openEyes() {
+		((TRGLAnimationView) this.getImage().getComponentByName("head.eyes")).loadAnimation("default");
+		((TRGLAnimationView) this.getImage().getComponentByName("head.eyes")).start();
+	}
+
+	public void blink() {
+		((TRGLAnimationView) this.getImage().getComponentByName("head.eyes")).loadAnimation("blink");
+		((TRGLAnimationView) this.getImage().getComponentByName("head.eyes")).start();
+	}
 
 }

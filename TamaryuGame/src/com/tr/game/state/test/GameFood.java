@@ -15,12 +15,12 @@ public class GameFood extends DragableIcon {
 
 	@Override
 	public void onDrag() {
-		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINES, 1, 0, 0, 0));
+		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 1, 0, 0, 0));
 	}
 
 	@Override
 	public void onDrop() {
-		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINES, 0, 0, 0, 0));
+		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 0, 0, 0, 0));
 	}
 	
 	public void setTargetPos(int x, int y){

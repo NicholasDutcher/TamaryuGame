@@ -31,6 +31,14 @@ public class IslandMenue extends Decoration {
 	public TRTextButton getButton() {
 		return this.ani.getButton();
 	}
+	
+	public void setContent(IRenderable r){
+		this.ani.setContent(r);
+	}
+	
+	public void removeContent(IRenderable r){
+		this.ani.removeComponent(r);
+	}
 
 	private void startScroll() {
 		ani.scroll();

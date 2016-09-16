@@ -7,6 +7,7 @@ public class TamaryuLogo extends TRGLImageView {
 	
 	public TamaryuLogo(){
 		this.setImage(new TRImage("tama_logo", "logo", "png", "/img", 0, 0, 0, 800, 374, 800, 374));
+		this.setFixedPosition(FIXED_POS_TOP);
 	}
 
 }

@@ -1,5 +1,6 @@
 package demo.tama;
 
+import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.img.TRImage;
 import com.tr.game.objects.DragableIcon;
 
@@ -13,15 +14,17 @@ public class Pear extends DragableIcon {
 	@Override
 	public void onDrag() {
 		this.setZ(this.getPosition().z+1);
+		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 2, 0.9f,0.4f,0, 0));
 		// TODO Auto-generated method stub
-		System.out.println("Start dragging!");
+		//System.out.println("Start dragging!");
 	}
 
 	@Override
 	public void onDrop() {
 		this.setZ(this.getPosition().z-1);
+		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 0, 0,1,0, 0));
 		// TODO Auto-generated method stub
-		System.out.println("Stop dragging!");
+		//System.out.println("Stop dragging!");
 	}
 
 }

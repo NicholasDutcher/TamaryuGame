@@ -1,25 +1,29 @@
 package demo.tama;
 
-import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.gl.TRGLAnimationView;
 import com.tr.engine.img.TRImage;
 import com.tr.engine.img.ani.TRAnimation;
 import com.tr.engine.img.ani.TRFrame;
 import com.tr.engine.img.ani.TRFrameAction;
-import com.tr.engine.input.TRDroparea;
+import com.tr.game.objects.Dragon;
+import com.tr.game.objects.dragons.DragonAnimation;
 
-public class BabyWyvern extends TRGLAnimationView implements TRDroparea{
+public class BabyWyvern extends DragonAnimation{
 
-	public BabyWyvern(int zIndex) {
-		super();
+	public BabyWyvern(int zIndex, Dragon d) {
+		super(zIndex, d);
 		this.setZ(zIndex);
 		this.setScale(0.5f);
 		buildAni();
+		createEyeDefaultAni();
+		createEyeCloseAni();
+		createBlinkAni();
 		createDefaultAni();
 		createLookLeftAni();
 		createLookRightAni();
 		this.loadDefault();
 		this.start();
+		//this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 8, 1,0,0, 0));
 		//this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0, 1, 0, 0, 1));
 	}
 	
@@ -89,11 +93,25 @@ public class BabyWyvern extends TRGLAnimationView implements TRDroparea{
 		v.setPosition(22, 77, 0);
 		v.setZ(this.getPosition().z + 3);
 		this.getComponentByName("head").addComponent(v);
+		
+		v = new TRGLAnimationView();
+		v.setName("open");
+		v.setSize(100, 120);
+		v.setPosition(0, 0, 0);
+		v.setZ(this.getPosition().z + 3);
+		this.getComponentByName("head.eyes").addComponent(v);
+		
+		v = new TRGLAnimationView();
+		v.setName("closed");
+		v.setSize(100, 120);
+		v.setPosition(0, 0, 0);
+		v.setZ(this.getPosition().z + 4);
+		this.getComponentByName("head.eyes").addComponent(v);
 	}
 
 	private void createDefaultAni() {
 		TRAnimation ani = new TRAnimation();
-		ani.setLoop(true);
+		ani.setLoop(false);
 		TRFrame frame = new TRFrame();
 
 		// set default body image
@@ -157,8 +175,8 @@ public class BabyWyvern extends TRGLAnimationView implements TRDroparea{
 		// set default eyes image
 		action = new TRFrameAction();
 		action.path = "head.eyes";
-		action.imgFlag = true;
-		action.img = new TRImage("eyesDefault", "wyvern_baby_eye_216x120", "png", "/img", 0, 0, 0, 210, 120, 432, 120);
+		action.loadFlag = true;
+		action.loadName = "default";
 		frame.addAction(action);
 
 		ani.setInitFram(frame);
@@ -167,7 +185,7 @@ public class BabyWyvern extends TRGLAnimationView implements TRDroparea{
 	
 	private void createLookLeftAni(){
 		TRAnimation ani = new TRAnimation();
-		ani.setLoop(true);
+		ani.setLoop(false);
 		TRFrame frame = new TRFrame();
 
 		TRFrameAction action = new TRFrameAction();
@@ -180,9 +198,103 @@ public class BabyWyvern extends TRGLAnimationView implements TRDroparea{
 		this.addAnimation("lookLeft", ani);
 	}
 	
+	private void createEyeDefaultAni(){
+		TRAnimation ani = new TRAnimation();
+		ani.setLoop(false);
+		TRFrame frame = new TRFrame();
+
+		TRFrameAction action = new TRFrameAction();
+		action.path = "open";
+		action.imgFlag = true;
+		action.img = new TRImage("eyesDefault", "wyvern_baby_eye_216x120", "png", "/img", 0, 0, 0, 210, 120, 432, 120);
+		action.posZFlag = true;
+		action.posZ = (int) (this.getPosition().z + 4);
+		frame.addAction(action);
+		
+		action = new TRFrameAction();
+		action.path = "closed";
+		action.imgFlag = true;
+		action.img = new TRImage("eyesClosed", "wyvern_baby_eye_216x120", "png", "/img", 210, 0, 0, 210, 120, 432, 120);
+		action.posZFlag = true;
+		action.posZ = (int) (this.getPosition().z + 3);
+		frame.addAction(action);
+		
+		ani.setInitFram(frame);
+		((TRGLAnimationView) this.getComponentByName("head.eyes")).addAnimation("default", ani);
+	}
+	
+	private void createEyeCloseAni(){
+		TRAnimation ani = new TRAnimation();
+		ani.setLoop(false);
+		TRFrame frame = new TRFrame();
+
+		TRFrameAction action = new TRFrameAction();
+		action.path = "open";
+		action.imgFlag = true;
+		action.img = new TRImage("eyesDefault", "wyvern_baby_eye_216x120", "png", "/img", 0, 0, 0, 210, 120, 432, 120);
+		action.posZFlag = true;
+		action.posZ = (int) (this.getPosition().z + 3);
+		frame.addAction(action);
+		
+		action = new TRFrameAction();
+		action.path = "closed";
+		action.imgFlag = true;
+		action.img = new TRImage("eyesClosed", "wyvern_baby_eye_216x120", "png", "/img", 210, 0, 0, 210, 120, 432, 120);
+		action.posZFlag = true;
+		action.posZ = (int) (this.getPosition().z + 4);
+		frame.addAction(action);
+		
+		ani.setInitFram(frame);
+		((TRGLAnimationView) this.getComponentByName("head.eyes")).addAnimation("closed", ani);
+	}
+	
+	private void createBlinkAni(){
+		TRAnimation ani = new TRAnimation();
+		ani.setLoop(false);
+		TRFrame frame = new TRFrame();
+
+		TRFrameAction action = new TRFrameAction();
+		action.path = "open";
+		action.posZFlag = true;
+		action.posZ = (int) (this.getPosition().z + 4);
+		frame.addAction(action);
+		
+		action = new TRFrameAction();
+		action.path = "closed";
+		action.posZFlag = true;
+		action.posZ = (int) (this.getPosition().z + 3);
+		frame.addAction(action);
+		
+		ani.setInitFram(frame);
+		ani.addFrame(frame);
+		
+		TRFrame frame1 = new TRFrame();
+
+		action = new TRFrameAction();
+		action.path = "open";
+		action.posZFlag = true;
+		action.posZ = (int) (this.getPosition().z + 3);
+		frame1.addAction(action);
+		
+		action = new TRFrameAction();
+		action.path = "closed";
+		action.posZFlag = true;
+		action.posZ = (int) (this.getPosition().z + 4);
+		frame1.addAction(action);
+		
+		ani.setInitFram(frame);
+		ani.addFrame(frame);
+		ani.addFrame(frame1);
+		ani.addFrame(frame);
+		ani.setCloseFrame(frame);
+		ani.setFixedFPS(5);
+		
+		((TRGLAnimationView) this.getComponentByName("head.eyes")).addAnimation("blink", ani);
+	}
+	
 	private void createLookRightAni(){
 		TRAnimation ani = new TRAnimation();
-		ani.setLoop(true);
+		ani.setLoop(false);
 		TRFrame frame = new TRFrame();
 
 		TRFrameAction action = new TRFrameAction();
@@ -193,15 +305,6 @@ public class BabyWyvern extends TRGLAnimationView implements TRDroparea{
 		
 		ani.setInitFram(frame);
 		this.addAnimation("lookRight", ani);
-	}
-
-	@Override
-	public boolean drop(IRenderable o) {
-		if(o instanceof Pear){
-			System.out.println("dropping pear");
-			return true;
-		}
-		return false;
 	}
 
 }

@@ -7,11 +7,13 @@ import com.tr.engine.img.TRImage;
 import com.tr.engine.obj.state.TRAbstractGameState;
 import com.tr.engine.sound.AudioMaster;
 import com.tr.game.core.states.TamaryuGameStateFactory;
+import com.tr.game.objects.TamaryuLogo;
 
 public class GameMenueState extends TRAbstractGameState {
 
 	private TRGLImageView bg = null;
 	private MenueButtons buttons = null;
+	private TamaryuLogo logo = new TamaryuLogo();
 
 	public GameMenueState() {
 		this(TamaryuGameStateFactory.SETTING_STATE, "Game_Menue");
@@ -27,6 +29,7 @@ public class GameMenueState extends TRAbstractGameState {
 		scene.clearScene();
 		gl.clear();
 		addComponents(scene);
+		scene.addComponent(logo);
 		
 		// Sound laden
 		String[] audios = new String[2];
@@ -39,6 +42,7 @@ public class GameMenueState extends TRAbstractGameState {
 	public void unload(TRScene scene, TRGameLooper gl) {
 		AudioMaster.clearData();
 		removeComponents(scene);
+		scene.removeComponent(logo);
 	}
 
 	private void initComponents(TRScene scene) {

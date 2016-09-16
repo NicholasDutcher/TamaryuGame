@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRTextButton;
 import com.tr.engine.components.gl.TRGLLabel;
+import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLAnimationView;
 import com.tr.engine.grf.gl.TRGLImageView;
@@ -12,6 +13,7 @@ import com.tr.engine.img.TRImage;
 import com.tr.engine.img.ani.TRAnimation;
 import com.tr.engine.img.ani.TRFrame;
 import com.tr.engine.img.ani.TRFrameAction;
+import com.tr.gl.core.GLCamera;
 
 public class IslandMenueAnimation extends TRGLImageView {
 
@@ -21,12 +23,12 @@ public class IslandMenueAnimation extends TRGLImageView {
 	private final static int SCROLL_WIDTH = 300;
 	private final static int SCROLL_HEAD_HEIGHT = 159;
 	private final static int SCROLL_OFFSET = 170;
-	private final static int SCROLL_BODY_HEIGHT = 600;
+	private final static int SCROLL_BODY_HEIGHT = 516;
 
-	private final static int SCROLL_BODY_MIN_HEIGHT = SCROLL_HEAD_HEIGHT;
+	private final static int SCROLL_BODY_MIN_HEIGHT = 84;
 	private final static int SCROLL_BODY_MAX_HEIGHT = SCROLL_BODY_HEIGHT;
-	private final static int SCROLL_BODY_OFFSET = SCROLL_HEAD_HEIGHT / 2;
-	private final static int MAX_FRAMES = 16;
+	private final static int SCROLL_BODY_OFFSET = 84; //SCROLL_HEAD_HEIGHT / 2;
+	private final static int MAX_FRAMES = 12;
 
 	public IslandMenueAnimation() {
 		this.setFixedPosition(FIXED_POS_TOP_RIGHT);
@@ -75,12 +77,22 @@ public class IslandMenueAnimation extends TRGLImageView {
 		// scrollBody.setPosition(0, SCROLL_HEAD_HEIGHT - SCROLL_OFFSET, -1);
 		createScrollAnimation();
 		scrollBody.setZ(4);
+		scrollBody.setClipping(true);
+	}
+	
+	public void setContent(IRenderable r){
+		if(r == null)
+			return;
+		r.setPosition(0, 446, scrollBody.getPosition().z+2);
+		scrollBody.addComponent(r);
+		//GLCamera.printFloatMatrix(scrollBody.getModelMatrix().getMatrix(), 4 , 4);
+		//System.out.println("ScrollBody: "+scrollBody.getWidth()+" x "+scrollBody.getHeight());
 	}
 
 	private void createScrollAnimation() {
 		ArrayList<TRFrame> frames = createFrames();
 		TRAnimation ani = new TRAnimation();
-		ani.setFixedFPS(30);
+		ani.setFixedFPS(60);
 		ani.setLoop(false);
 
 		// scroll down animation
@@ -91,7 +103,7 @@ public class IslandMenueAnimation extends TRGLImageView {
 
 		// scroll up animation
 		ani = new TRAnimation();
-		ani.setFixedFPS(30);
+		ani.setFixedFPS(60);
 		ani.setLoop(false);
 		for (int i = frames.size() - 1; i >= 0; i--) {
 			ani.addFrame(frames.get(i));
@@ -100,7 +112,7 @@ public class IslandMenueAnimation extends TRGLImageView {
 
 		// scroll default animation
 		ani = new TRAnimation();
-		ani.setFixedFPS(30);
+		ani.setFixedFPS(60);
 		ani.setLoop(false);
 		ani.setInitFram(frames.get(0));
 		scrollBody.addAnimation("default", ani);
@@ -114,7 +126,6 @@ public class IslandMenueAnimation extends TRGLImageView {
 		ArrayList<TRFrame> frames = new ArrayList<TRFrame>();
 
 		int step = (SCROLL_BODY_MAX_HEIGHT - SCROLL_BODY_MIN_HEIGHT) / MAX_FRAMES;
-		int hStep = (int) (SCROLL_BODY_OFFSET / (MAX_FRAMES * 0.75f));
 
 		for (int i = 0; i < MAX_FRAMES; i++) {
 			TRFrame f = new TRFrame();
@@ -129,12 +140,12 @@ public class IslandMenueAnimation extends TRGLImageView {
 			}
 
 			a.imgFlag = true;
-			a.img = new TRImage("scrollBody", "menu_scroll_bottom", "png", "/img", 0, 0, 0, 300, h - SCROLL_BODY_OFFSET,
-					300, 600);
+			a.img = new TRImage("scrollBody", "menu_scroll_bottom2", "png", "/img", 0, 0, 0, 300, h /*- SCROLL_BODY_OFFSET*/,
+					300, 516);
 			a.hFlag = true;
-			a.h = h - SCROLL_BODY_OFFSET;
+			a.h = h; // - SCROLL_BODY_OFFSET;
 			a.posYFlag = true;
-			a.posY = SCROLL_BODY_MIN_HEIGHT - h;
+			a.posY = SCROLL_BODY_MIN_HEIGHT  - h;
 
 			//System.out.println("Frame " + i + ": ah = " + a.h + "; Tex h = " + h);
 
@@ -154,12 +165,23 @@ public class IslandMenueAnimation extends TRGLImageView {
 		// scrollBody.loadAnimation("down");
 		// scrollBody.setImage(new TRImage("scrollBody", "menu_scroll_bottom",
 		// "png", "/img", 0, 0, 0, 300, 600, 300, 600));
-		if (scrollBody.getHeight() == (SCROLL_BODY_MAX_HEIGHT - SCROLL_BODY_OFFSET)) {
+		/*if (scrollBody.getHeight() == (SCROLL_BODY_MAX_HEIGHT - SCROLL_BODY_OFFSET)) {
+			GLCamera.printFloatMatrix(scrollBody.getModelMatrix().getMatrix(), 4 , 4);
 			//System.out.println("UP");
 			scrollBody.loadAnimation("up");
 		} else if (scrollBody.getHeight() == (SCROLL_BODY_MIN_HEIGHT - SCROLL_BODY_OFFSET)) {
 			//System.out.println("DOWN");
 			scrollBody.loadAnimation("down");
+			GLCamera.printFloatMatrix(scrollBody.getModelMatrix().getMatrix(), 4 , 4);
+		}*/
+		if (scrollBody.getHeight() == SCROLL_BODY_MAX_HEIGHT) {
+			//GLCamera.printFloatMatrix(scrollBody.getModelMatrix().getMatrix(), 4 , 4);
+			//System.out.println("UP");
+			scrollBody.loadAnimation("up");
+		} else if (scrollBody.getHeight() == SCROLL_BODY_MIN_HEIGHT) {
+			//System.out.println("DOWN");
+			scrollBody.loadAnimation("down");
+			//GLCamera.printFloatMatrix(scrollBody.getModelMatrix().getMatrix(), 4 , 4);
 		}
 	}
 
