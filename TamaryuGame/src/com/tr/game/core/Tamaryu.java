@@ -3,6 +3,7 @@ package com.tr.game.core;
 import com.tr.engine.core.TRGameLooper;
 import com.tr.engine.grf.TRGameWindow;
 import com.tr.engine.grf.TRRenderContext;
+import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLRenderContext;
 import com.tr.engine.input.TRDragAndDropManager;
@@ -62,6 +63,8 @@ public class Tamaryu {
 		rc = new TRGLRenderContext(1024, 740);
 		rc.setDebug(true);
 		rc.init();
+		rc.setGRP(true);
+		//rc.addRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_8BIT_COLOR, 1));
 		rc.addOnClose(new Runnable() {
 
 			@Override

@@ -5,6 +5,7 @@ import com.tr.engine.grf.Color;
 import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLAnimationView;
+import com.tr.game.objects.dragons.DragonAnimation;
 import com.tr.gl.core.Point3D;
 
 public class Dragon extends Actor {
@@ -38,12 +39,13 @@ public class Dragon extends Actor {
 	protected boolean canMove = true;
 	protected boolean canFly = true;
 	protected boolean canSwim = false;
+	protected boolean allowIdleMove = true;
 	
-	protected boolean idle = true;
-	protected boolean moving = false;
-	protected boolean flying = false;
-	protected boolean selected = false;
-	protected Point3D targetPos = new Point3D(0,0,0);
+	protected volatile boolean idle = true;
+	protected volatile boolean moving = false;
+	protected volatile boolean flying = false;
+	protected volatile boolean selected = false;
+	protected volatile Point3D targetPos = new Point3D(0,0,0);
 
 	protected Color dragonColor, eyeColor, eyeColor2;
 
@@ -617,6 +619,17 @@ public class Dragon extends Actor {
 	}
 
 	// animation methods
+	public Point3D getPosition(){
+		if(this.getImage() != null){
+			return this.getImage().getPosition();
+		}
+		return null;
+	}
+	
+	public int[] getFieldSize(){
+		return new int[]{((DragonAnimation) getImage()).getFieldWidth(), ((DragonAnimation) getImage()).getFieldHeight()};
+	}
+	
 	public void setColor(Color c) {
 		this.dragonColor = c;
 		if (dragonColor != null) {
@@ -666,6 +679,42 @@ public class Dragon extends Actor {
 	public void lookRight(){
 		((TRGLAnimationView) this.getImage()).loadAnimation("lookRight");
 		((TRGLAnimationView) this.getImage()).start();
+	}
+	
+	public void fly(boolean start){
+		if(!this.canFly){
+			return;
+		}
+		if(start){
+			int speed = (int) Math.round(Math.random()*10+4);
+			((TRGLAnimationView) this.getImage().getComponentByName("wings")).loadAnimation("fly", speed);
+		}else{
+			((TRGLAnimationView) this.getImage().getComponentByName("wings")).loadAnimation("default");
+		}
+		((TRGLAnimationView) this.getImage().getComponentByName("wings")).start();
+	}
+	
+	public void walk(boolean start){
+		if(!this.canMove){
+			return;
+		}
+		if(start){
+			int speed = (int) Math.round(Math.random()*10+4);
+			((TRGLAnimationView) this.getImage().getComponentByName("legs")).loadAnimation("move", speed);
+		}else{
+			((TRGLAnimationView) this.getImage().getComponentByName("legs")).loadAnimation("default");
+		}
+		((TRGLAnimationView) this.getImage().getComponentByName("legs")).start();
+	}
+	
+	public void waveTail(boolean start){
+		if(start){
+			int speed = (int) Math.round(Math.random()*7+5);
+			((TRGLAnimationView) this.getImage().getComponentByName("tail")).loadAnimation("wave", speed);
+		}else{
+			((TRGLAnimationView) this.getImage().getComponentByName("tail")).loadAnimation("default");
+		}
+		((TRGLAnimationView) this.getImage().getComponentByName("tail")).start();
 	}
 	
 	public void lookLeft(){

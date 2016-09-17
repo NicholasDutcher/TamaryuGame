@@ -1,7 +1,5 @@
-- InputField erstellen /
 - achievements
 - ingame dialog
-- bild für ingame dialog
 
 - minigame erstellen ???
 - wenn zeit: reservierte audiosources, die nicht gecleart werden (damit clicksounds nicht durch zu schnelle ladezeit übersprungen werden.)
