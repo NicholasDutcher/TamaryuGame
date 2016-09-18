@@ -4,6 +4,7 @@ import com.tr.engine.grf.TRRenderContext;
 import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.gl.core.GLCamera;
+import com.tr.gl.core.Point3D;
 
 public class TCInterface extends TRGLImageView {
 	private int w = 400;
@@ -20,7 +21,7 @@ public class TCInterface extends TRGLImageView {
 	
 	private TCDropListener dl = null;
 	
-	public TCInterface(int height, int row, int column, TCDropListener dl){
+	public TCInterface(int height, int column, int row, TCDropListener dl){
 		this.dl = dl;
 		this.fc = column;
 		this.fr = row;
@@ -36,6 +37,10 @@ public class TCInterface extends TRGLImageView {
 		initField();
 	}
 	
+	public Point3D getTielPos(int c, int r){
+		return new Point3D(c*elementW, r*elementH, 0);
+	}
+	
 	private void initField(){
 		field.setSize(fieldWidth, fieldHeight);
 		field.setPosition((w-fieldWidth)/2, (h-fieldHeight)/2, 31);
@@ -46,8 +51,8 @@ public class TCInterface extends TRGLImageView {
 			for(int c = 0; c < fc; c++){
 				da = new GameDropArea(elementW);
 				da.setDropListener(dl);
-				da.col = c;
-				da.row = r;
+				da.col = r;
+				da.row = c;
 				da.setPosition(r*elementW+1, c*elementH+1, 32);
 				field.addComponent(da);
 			}

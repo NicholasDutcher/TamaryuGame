@@ -3,8 +3,8 @@ package com.tr.game.state.test;
 import com.tr.gl.core.Point3D;
 
 public class TCFruit extends GameFood {
-	public int column = 0;
-	public int row = 0;
+	public volatile int column = 0;
+	public volatile int row = 0;
 	public ETCFruits type = null;
 
 	public TCFruit(ETCFruits fruit) {

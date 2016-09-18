@@ -1,13 +1,11 @@
 package com.tr.game.state.test;
 
-import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
-import com.tr.game.objects.DragableIcon;
 
 public class GameFood extends TRGLImageView {
 	protected int tposX = 0, tposY = 0;
-	protected int maxSpeed = 20;
+	protected int maxSpeed = 10;
 	protected boolean onPlace = true;
 	
 	public GameFood(TRImage img){
@@ -40,12 +38,21 @@ public class GameFood extends TRGLImageView {
 		int xOff = 0, yOff = 0;
 		if(this.getPosition().x != tposX){
 			xOff = (int) (tposX - this.getPosition().x);
-			xOff = Math.min(xOff, maxSpeed);
+			if(xOff < 0){
+				xOff = Math.max(xOff, -maxSpeed);
+			}else{
+				xOff = Math.min(xOff, maxSpeed);
+			}
 		}
 		
 		if(this.getPosition().y != tposY){
 			yOff = (int) (tposY - this.getPosition().y);
 			yOff = Math.min(yOff, maxSpeed);
+			if(yOff < 0){
+				yOff = Math.max(yOff, -maxSpeed);
+			}else{
+				yOff = Math.min(yOff, maxSpeed);
+			}
 		}
 		this.increasePos(xOff, yOff, 0);
 		
