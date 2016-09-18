@@ -1,10 +1,13 @@
 package com.tr.game.state.test;
 
+import com.tr.engine.components.TRComponentManager;
+import com.tr.engine.components.TRLabel;
+import com.tr.engine.grf.Color;
 import com.tr.engine.grf.TRRenderContext;
-import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.gl.core.GLCamera;
 import com.tr.gl.core.Point3D;
+import com.tr.util.LanguageTranslator;
 
 public class TCInterface extends TRGLImageView {
 	private int w = 400;
@@ -18,6 +21,7 @@ public class TCInterface extends TRGLImageView {
 	
 	private int fc = 0, fr = 0;
 	private TRGLImageView field = new TRGLImageView();
+	private TRLabel titel = TRComponentManager.getLabel(LanguageTranslator.getString("gametitel"));
 	
 	private TCDropListener dl = null;
 	
@@ -31,8 +35,12 @@ public class TCInterface extends TRGLImageView {
 		this.setPosition(0, 0, 30);
 		this.setSize(w, h);
 		this.setFixedPosition(FIXED_POS_CENTER);
-		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0,0,0,1,1));
-		field.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0,0,1,0,1));
+		//this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0,0,0,1,1));
+		//field.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0,0,1,0,1));
+		
+		titel.setPosition((w-titel.getWidth())/2, h-(30+38), 5);
+		titel.setColor(Color.ORANGE);
+		this.addComponent(titel);
 		
 		initField();
 	}
@@ -43,7 +51,8 @@ public class TCInterface extends TRGLImageView {
 	
 	private void initField(){
 		field.setSize(fieldWidth, fieldHeight);
-		field.setPosition((w-fieldWidth)/2, (h-fieldHeight)/2, 31);
+		field.setPosition((w-fieldWidth)/2, (h-fieldHeight)/3*2, 31);
+		field.setClipping(true);
 		this.addComponent(field);
 		
 		GameDropArea da = null;

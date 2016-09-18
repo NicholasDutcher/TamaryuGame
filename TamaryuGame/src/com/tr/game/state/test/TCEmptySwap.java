@@ -25,7 +25,7 @@ public class TCEmptySwap extends TCSwap {
 			from.column = c;
 			from.row = r;
 			arr[c][r] = from;
-			System.out.println("Swaped to: "+c+", "+r);
+			//System.out.println("Swaped to: "+c+", "+r);
 		}
 		return ready;
 	}

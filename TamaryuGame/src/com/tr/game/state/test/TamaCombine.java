@@ -26,6 +26,8 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 	private volatile boolean movedown = false;
 	private volatile boolean removing = false;
 	private volatile boolean fillup = false;
+	private volatile boolean ready = false;
+	private volatile boolean end = false;
 	
 	private volatile ArrayList<TCSwap> possibleSwaps = new ArrayList<TCSwap>();
 
@@ -60,7 +62,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 	private void detectPossibleMoves(){
 		possibleSwaps.clear();
 
-		//debug
+		/*//debug
 		//System.out.println("Empty Slots in column "+c+": "+emptySlots);
 		float[] fa = new float[9*9];
 		for(int j = 8; j>=0; j--){
@@ -68,7 +70,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 				fa[j*9+i] = (fieldArr[i][j] != null)?1:0;
 			}
 		}
-		GLCamera.printFloatMatrix(fa, 9, 9, true);
+		GLCamera.printFloatMatrix(fa, 9, 9, true);*/
 		
 		for (int i = 0; i < COLUMN_COUNT; i++) {
 			for (int j = 0; j < ROW_COUNT; j++) {
@@ -83,6 +85,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 						
 						if(hasChain(i+1, j) || hasChain(i, j)){
 							directSwap(t,f);
+							//System.out.println("["+i+", "+j+"] Pos swap!");
 							possibleSwaps.add(new TCSwap(f, t, fieldArr));
 						}else{
 							directSwap(t,f);
@@ -97,6 +100,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 						directSwap(f, t);
 						
 						if(hasChain(i, j+1) || hasChain(i, j)){
+							//System.out.println("["+i+", "+j+"] Pos swap!");
 							directSwap(t, f);
 							possibleSwaps.add(new TCSwap(f, t, fieldArr));
 						}else{
@@ -115,20 +119,21 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 		int hl = 1, vl = 1;
 		
 		//hor
-		for(int i = col-1; i >= 0 && getElement(i, row) != null && getElement(i, row).type.equals(getElement(col,row).type); i--, hl++){
+		for(int i = col-1; i >= 0 && getElement(i, row).type.equals(getElement(col,row).type); i--, hl++){
+			//System.out.println(getElement(i, row).column+" -/- "+getElement(i, row).row);
 			//hl ++;
 		}
-		for(int i = col+1; i < COLUMN_COUNT && getElement(i, row) != null && getElement(i, row).type.equals(getElement(col,row).type); i++, hl++){
+		for(int i = col+1; i < COLUMN_COUNT  && getElement(i, row).type.equals(getElement(col,row).type); i++, hl++){
 			//hl ++;
 		}
 		if(hl >= 3)
 			return true;
 		
 		//vert
-		for(int i = row-1; i >= 0 && getElement(col, i) != null && getElement(col, i).type.equals(getElement(col,i).type); i--){
+		for(int i = row-1; i >= 0 && getElement(col, i).type.equals(getElement(col,row).type); i--){
 			vl ++;
 		}
-		for(int i = row+1; i < ROW_COUNT && getElement(col, i) != null && getElement(col, i).type.equals(getElement(col,row).type); i++){
+		for(int i = row+1; i < ROW_COUNT && getElement(col, i).type.equals(getElement(col,row).type); i++){
 			vl ++;
 		}
 		if(vl >= 3)
@@ -269,6 +274,9 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 
 	@Override
 	public void update(long ct) {
+		if(end){
+			return;
+		}
 		synchronized (swapLock) {
 			//if swaps to do
 			if (swaps.size() > 0) {
@@ -295,7 +303,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 					
 					//remove matches, if not allready done
 					if(!removing && !fillup && !movedown){
-						this.removeMatches();
+						ready = !this.removeMatches();
 						removing = true;
 						return;
 					}
@@ -333,6 +341,12 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 					removing = false;
 					fillup = false;
 					movedown = false;
+					
+					if(!ready){
+						ready = !this.removeMatches();
+						removing = true;
+						return;
+					}
 					
 					//
 					//debug
@@ -403,14 +417,14 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 		}
 		
 		//
-		System.out.println("After remove:");
+		/*System.out.println("After remove:");
 		float[] fa = new float[9*9];
 		for(int i = 0; i<9; i++){
 			for(int j = 0; j<9; j++){
 				fa[i*9+j] = (fieldArr[i][j] != null)?1:0;
 			}
 		}
-		GLCamera.printFloatMatrix(fa, 9, 9, true);
+		GLCamera.printFloatMatrix(fa, 9, 9, true);*/
 		
 		return (matches.size() != 0);
 	}
@@ -427,7 +441,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 
 	@Override
 	public void mouseLeave(TRGlobalMouseEvent e) {
-		if (swipFromCol > 0 && swipFromRow > 0) {
+		if (swipFromCol >= 0 && swipFromRow >= 0) {
 			if (swipFromCol < COLUMN_COUNT && swipFromRow < ROW_COUNT) {
 				fieldArr[swipFromCol][swipFromRow].setRenderPropertie(
 						new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 0, 57 / 255f, 255 / 255f, 20 / 255f, 0));
@@ -438,7 +452,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 
 	@Override
 	public void mouseRelease(TRGlobalMouseEvent e) {
-		if (swipFromCol > 0 && swipFromRow > 0) {
+		if (swipFromCol >= 0 && swipFromRow >= 0) {
 			if (swipFromCol < COLUMN_COUNT && swipFromRow < ROW_COUNT) {
 				fieldArr[swipFromCol][swipFromRow].setRenderPropertie(
 						new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 0, 57 / 255f, 255 / 255f, 20 / 255f, 0));
