@@ -5,6 +5,7 @@ import com.tr.engine.grf.TRRenderContext;
 import com.tr.engine.grf.gl.TRGLAnimationView;
 import com.tr.engine.input.TRDroparea;
 import com.tr.game.objects.Dragon;
+import com.tr.gl.core.GLCamera;
 
 public class DragonAnimation extends TRGLAnimationView implements TRDroparea {
 	protected int zIndex = 0; 
@@ -34,8 +35,8 @@ public class DragonAnimation extends TRGLAnimationView implements TRDroparea {
 	
 	public void render(TRRenderContext s){
 		super.render(s);
-		fieldW  = (int) s.getScene().getSceneSize().getWidth();
-		fieldH  = (int) s.getScene().getSceneSize().getHeight();
+		fieldW  = (int) (s.getScene().getCamera().getWinWidth() * ((GLCamera) s.getScene().getCamera()).getScale());
+		fieldH  = (int) (s.getScene().getCamera().getWinHeigth() * ((GLCamera) s.getScene().getCamera()).getScale());
 	}
 
 }

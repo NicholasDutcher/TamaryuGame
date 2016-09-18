@@ -66,12 +66,15 @@ public class Wyvern extends Dragon {
 			if(this.allowIdleMove && !this.moving && !this.flying){
 				if(this.idleMoveReady){
 					if((nextIdleMove - time) < 0){
-						int maxX = (int) (this.getFieldSize()[0] - this.getImage().getWidth()*this.getImage().getScale());
+						float s = getImage().getScale();
+						int maxX = (int) ((this.getFieldSize()[0] - this.getImage().getWidth()*s)/s);
 						int minX = 0, minY = 0;
-						int maxY = (int) (this.getFieldSize()[1] - this.getImage().getHeight()*this.getImage().getScale());
+						int maxY = (int) ((this.getFieldSize()[1] - this.getImage().getHeight()*s)/s);
 						this.targetPos = new Point3D(Math.round(Math.random()*(maxX - minX)+minX), 
-								Math.round(Math.random()*(maxY - minY)+minY), 0f);
+								Math.round(Math.random()*(maxY - minY)*0.75f+minY), 0f);
 						this.idleMoveReady = false;
+						//System.out.println("Image Scale: "+getImage().getScale()+"; Image Size: "+getImage().getWidth()+" x "+getImage().getHeight()+"; FieldWidth: "+this.getFieldSize()[0]);
+						//System.out.println("Max Pos: ["+maxX+", "+maxY+"];  Target: "+targetPos);
 						if(Math.random() > 0.3){
 							this.walk(true);
 							this.moving = true;
@@ -106,6 +109,7 @@ public class Wyvern extends Dragon {
 				this.getImage().setX(Math.max(targetPos.x, getPosition().x-5));
 			}else{
 				this.lookRight();
+				//System.out.println("Set x: "+Math.min(targetPos.x, getPosition().x+5));
 				this.getImage().setX(Math.min(targetPos.x, getPosition().x+5));
 			}
 		}

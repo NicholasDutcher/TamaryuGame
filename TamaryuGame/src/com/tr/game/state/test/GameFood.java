@@ -1,27 +1,32 @@
 package com.tr.game.state.test;
 
 import com.tr.engine.grf.TRRenderPropertie;
+import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
 import com.tr.game.objects.DragableIcon;
 
-public class GameFood extends DragableIcon {
+public class GameFood extends TRGLImageView {
 	protected int tposX = 0, tposY = 0;
 	protected int maxSpeed = 20;
 	protected boolean onPlace = true;
 	
-	public GameFood(String foodImgName){
-		this.setImage(new TRImage(foodImgName, foodImgName, "png", "/img", 0, 0, 0, 32, 32, 32, 32));
+	public GameFood(TRImage img){
+		this.setImage(img);
 	}
 
-	@Override
+	/*@Override
 	public void onDrag() {
-		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 1, 0, 0, 0));
+		this.setZ(this.getPosition().z+1);
+		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 3, 57/255f, 255/255f, 20/255f, 0));
+		//System.out.println("Start: "+this.getAbsolutPosition()+" ["+this.getAbsolutScale()+"]");
+		//System.out.println("Size: "+this.getWidth()+" x "+this.getHeight()+" Hitbox: "+hitbox);
 	}
 
 	@Override
 	public void onDrop() {
-		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 0, 0, 0, 0));
-	}
+		this.setZ(this.getPosition().z-1);
+		this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 0, 0, 0, 0, 0));
+	}*/
 	
 	public void setTargetPos(int x, int y){
 		tposX = x;

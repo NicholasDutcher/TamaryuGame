@@ -41,7 +41,7 @@ public class IslandTextMenue extends TRGLImageView {
 		gameB.addClickAction(new Runnable() {
 			@Override
 			public void run() {
-				System.exit(0);
+				TRGameStateManager.setState(TamaryuGameStateFactory.MINIGAME_STATE);
 			}
 		});
 		gameB.setPosition(80, -164);
