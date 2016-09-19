@@ -6,6 +6,7 @@ import com.tr.game.state.help.HelpState;
 import com.tr.game.state.island.IslandMainState;
 import com.tr.game.state.login.LoginState;
 import com.tr.game.state.menue.GameMenueState;
+import com.tr.game.state.result.ResultState;
 import com.tr.game.state.setting.lang.SettingsLangState;
 import com.tr.game.state.test.TamaCombineState;
 
@@ -28,7 +29,7 @@ public class TamaryuGameStateFactory extends TRGameStateFactory {
 		case SETTING_STATE:
 			return new GameMenueState();
 		case RESULT_STATE:
-			return new LoginState();
+			return new ResultState();
 		case MINIGAME_STATE:
 			return new TamaCombineState();
 		case BREEDING_STATE:

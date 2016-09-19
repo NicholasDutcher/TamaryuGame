@@ -9,6 +9,7 @@ import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.obj.state.TRGameStateManager;
 import com.tr.engine.sound.AudioMaster;
+import com.tr.game.core.states.TamaryuGameStateFactory;
 import com.tr.util.LanguageTranslator;
 
 public class LangButtons extends TRGLImageView {
@@ -75,7 +76,25 @@ public class LangButtons extends TRGLImageView {
 		});
 		this.addComponent(backB);
 		gh += 10;
+		
+		
+		///////////////////////////////////////TESTING BY NICK//////////////////////////////////////////
+		
+		TRTextButton resultB = createButton(LanguageTranslator.getString("result"));
+		resultB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
+			@Override
+			public void run() {
+				AudioMaster.playSource(1);
+				TRGameStateManager.setState(TamaryuGameStateFactory.RESULT_STATE);
+				// TRGameStateManager.reset();
+			}
+		});
+		this.addComponent(resultB);
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
 		// setGermanButton
 		TRTextButton deB = createButton(LanguageTranslator.getString("german"));
 		deB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
@@ -92,7 +111,7 @@ public class LangButtons extends TRGLImageView {
 		this.addComponent(deB);
 
 		// setEnglishButton
-		TRTextButton enB = createButton(LanguageTranslator.getString("german"));
+		TRTextButton enB = createButton(LanguageTranslator.getString("english"));
 		enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
 			@Override
