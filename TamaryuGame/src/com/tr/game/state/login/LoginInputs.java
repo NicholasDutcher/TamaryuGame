@@ -61,7 +61,7 @@ class LoginInputs extends AbstractGameObject implements ITRKeyListener{
 	
 	public void update(long time){
 		if(stateChange){
-			TRGameStateManager.setState(TamaryuGameStateFactory.SETTING_STATE);
+			TRGameStateManager.setState(TamaryuGameStateFactory.MENU_STATE);
 		}
 	}
 

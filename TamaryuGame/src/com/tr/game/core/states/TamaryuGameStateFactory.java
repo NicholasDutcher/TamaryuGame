@@ -8,6 +8,7 @@ import com.tr.game.state.login.LoginState;
 import com.tr.game.state.menue.GameMenueState;
 import com.tr.game.state.result.ResultState;
 import com.tr.game.state.setting.lang.SettingsLangState;
+import com.tr.game.state.setting.main.SettingState;
 import com.tr.game.state.test.TamaCombineState;
 
 public class TamaryuGameStateFactory extends TRGameStateFactory {
@@ -22,12 +23,15 @@ public class TamaryuGameStateFactory extends TRGameStateFactory {
 	public static final int SETTING_STATE = 7;
 	public static final int SETTING_LANG_STATE = 8;
 	public static final int HELP_STATE = 9;
+	public static final int MENU_STATE = 10;
 
 	@Override
 	public TRAbstractGameState getState(int id) {
 		switch (id) {
-		case SETTING_STATE:
+		case MENU_STATE:
 			return new GameMenueState();
+		case SETTING_STATE:
+			return new SettingState();
 		case RESULT_STATE:
 			return new ResultState();
 		case MINIGAME_STATE:

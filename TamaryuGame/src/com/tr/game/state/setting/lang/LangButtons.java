@@ -70,7 +70,7 @@ public class LangButtons extends TRGLImageView {
 			@Override
 			public void run() {
 				AudioMaster.playSource(1);
-				TRGameStateManager.setState(7);
+				TRGameStateManager.setState(TamaryuGameStateFactory.MENU_STATE);
 				// TRGameStateManager.reset();
 			}
 		});
