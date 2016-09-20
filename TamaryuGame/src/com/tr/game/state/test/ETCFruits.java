@@ -8,11 +8,13 @@ import java.util.Random;
 import com.tr.engine.img.TRImage;
 
 public enum ETCFruits {
-	APPLE(new TRImage("pear1", "pear_32", "png", "/img", 0, 0, 0, 32, 32, 32, 32)),
-	PEAR(new TRImage("apple1", "apple", "png", "/img", 0, 0, 0, 300, 300, 300, 300)),
-	MEAT(new TRImage("meat1", "meat_128", "png", "/img", 0, 0, 0, 128, 128, 128, 128)),
-	ORANGE(new TRImage("orange1", "orange_64", "png", "/img", 0, 0, 0, 64, 64, 64, 64)),
-	NOTHING(new TRImage("fail1", "fail_128", "png", "/img", 0, 0, 0, 128, 128, 128, 128));
+	APPLE(new TRImage("apple1", "golden_apple_64", "png", "/img", 0, 0, 0, 64, 64, 64, 64)),
+	CHICKEN(new TRImage("chicken1", "chicken_64", "png", "/img", 0, 0, 0, 64, 64, 64, 64)),
+	MEAT(new TRImage("meat1", "meat_64", "png", "/img", 0, 0, 0, 64, 64, 64, 64)),
+	ORANGE(new TRImage("orange1", "orange_64 (2)", "png", "/img", 0, 0, 0, 64, 64, 64, 64)),
+	PEAR(new TRImage("pear1", "pear2_64", "png", "/img", 0, 0, 0, 64, 64, 64, 64)),
+	PITAHAYA(new TRImage("pitahaya1", "pitahaya_64", "png", "/img", 0, 0, 0, 64, 64, 64, 64)),
+	TOMATO(new TRImage("tomato1", "tomato_64", "png", "/img", 0, 0, 0, 64, 64, 64, 64));
 	
 	private TRImage img = null;
 	
