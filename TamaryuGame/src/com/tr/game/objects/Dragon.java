@@ -12,7 +12,7 @@ public class Dragon extends Actor {
 
 	public static final boolean MALE = true;
 	public static final boolean FEMALE = false;
-	public static final long ROUNDTIME = 3000;
+	public static final long ROUNDTIME = 300;
 
 	protected String name = "Dragon";
 	protected String parent1;

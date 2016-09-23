@@ -1,11 +1,11 @@
 package com.tr.game.objects;
 
-import com.tr.engine.gameobject.AbstractGameObject;
 import com.tr.engine.grf.IRenderable;
+import com.tr.engine.grf.TRRenderContext;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
 
-public class TamaProgressBar extends AbstractGameObject {
+public class TamaProgressBar extends TRGLImageView{
 	protected float maxValue = 100;
 	protected float minValue = 0;
 	protected float curValue = 50;
@@ -14,17 +14,15 @@ public class TamaProgressBar extends AbstractGameObject {
 	protected float stepP = 0.02f;
 	protected float step = 0;
 	
-	protected TRGLImageView bar = new TRGLImageView();
 	protected TRGLImageView value = new TRGLImageView();
 	
 	public TamaProgressBar(float minValue, float maxValue) {
-		super(0, 0, 0, 0);
-		bar.setImage(new TRImage("progressBG", "progress_bg2", "png", "/img", 0, 0, 0, 330, 34, 330, 34));
+		this.setImage(new TRImage("progressBG", "progress_bg2", "png", "/img", 0, 0, 0, 330, 34, 330, 34));
 		value.setImage(new TRImage("progress", "progress1", "png", "/img", 0, 0, 0, 0, 34, 330, 34));
 		
 		calculateStep();
 		
-		bar.addComponent(value);
+		this.addComponent(value);
 	}
 	
 	protected void calculateStep(){
@@ -37,17 +35,17 @@ public class TamaProgressBar extends AbstractGameObject {
 	}
 	
 	public IRenderable getRenderable(){
-		return bar;
+		return this;
 	}
 	
 	public void setPosition(int x, int y, int z){
-		bar.setPosition(x, y, z);
+		super.setPosition(x, y, z);
 		value.setPosition(0, 0, z+1);
 	}
 	
 	public void setSize(int w, int h){
 		value.setSize(w, h);
-		bar.setSize(w, h);
+		super.setSize(w, h);
 	}
 	
 	
@@ -91,7 +89,8 @@ public class TamaProgressBar extends AbstractGameObject {
 
 
 	@Override
-	public void update(long ct) {
+	public void render(TRRenderContext rc) {
+		super.render(rc);
 		if(tmpValue != curValue){
 			if(tmpValue < curValue){
 				tmpValue = Math.min(curValue, tmpValue + step);
@@ -102,7 +101,7 @@ public class TamaProgressBar extends AbstractGameObject {
 			float p = (tmpValue - minValue) / (maxValue - minValue);
 			
 			value.setImage(new TRImage("progress", "progress1", "png", "/img", 0, 0, 0, Math.round(p*330), 34, 330, 34));
-			value.setSize(Math.round(p*bar.getWidth()), bar.getHeight());
+			value.setSize(Math.round(p*this.getWidth()), this.getHeight());
 		}
 	}
 

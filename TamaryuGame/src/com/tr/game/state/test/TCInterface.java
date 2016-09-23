@@ -92,7 +92,7 @@ public class TCInterface extends TRGLImageView {
 	}
 	
 	public AbstractGameObject[] getUpdateable(){
-		return new AbstractGameObject[]{progress};
+		return new AbstractGameObject[]{};
 	}
 	
 	public Point3D getTielPos(int c, int r){
