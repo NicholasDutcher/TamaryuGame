@@ -82,8 +82,9 @@ public class BabyWyvern extends DragonAnimation{
 		v.setName("rleg");
 		v.setSize(260, 336);
 		v.setAnchor(125, 251, 0);
-		v.setZRotation(-30);
-		v.setZ(this.getPosition().z);
+		v.setZRotation(-20);
+		//v.setZ(this.getPosition().z);
+		v.setPosition(-100, 30, this.getPosition().z);
 		views.add(v);
 		this.getComponentByName("legs").addComponent(v);
 

@@ -1,4 +1,4 @@
-package com.tr.game.state.test;
+package com.tr.game.state.tc;
 
 import com.tr.engine.grf.IRenderable;
 import com.tr.engine.grf.gl.TRGLImageView;

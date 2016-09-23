@@ -10,7 +10,7 @@ import com.tr.game.state.result.ResultState;
 import com.tr.game.state.setting.audio.SettingsAudioState;
 import com.tr.game.state.setting.lang.SettingsLangState;
 import com.tr.game.state.setting.main.SettingState;
-import com.tr.game.state.test.TamaCombineState;
+import com.tr.game.state.tc.TamaCombineState;
 
 public class TamaryuGameStateFactory extends TRGameStateFactory {
 

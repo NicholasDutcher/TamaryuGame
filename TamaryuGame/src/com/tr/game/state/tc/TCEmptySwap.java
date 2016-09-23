@@ -1,4 +1,4 @@
-package com.tr.game.state.test;
+package com.tr.game.state.tc;
 
 import com.tr.gl.core.Point3D;
 

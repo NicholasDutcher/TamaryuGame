@@ -1,4 +1,4 @@
-package com.tr.game.state.test;
+package com.tr.game.state.tc;
 
 public class TCSwap {
 	public TCFruit from = null;

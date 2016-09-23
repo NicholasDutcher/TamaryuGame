@@ -1,4 +1,4 @@
-package com.tr.game.state.test;
+package com.tr.game.state.tc;
 
 import com.tr.engine.core.TRGameLooper;
 import com.tr.engine.gameobject.AbstractGameObject;
