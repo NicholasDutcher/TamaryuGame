@@ -1,5 +1,8 @@
 package com.tr.game.objects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.tr.engine.gameobject.Actor;
 import com.tr.engine.grf.Color;
 import com.tr.engine.grf.IRenderable;
@@ -48,7 +51,9 @@ public class Dragon extends Actor {
 	protected volatile Point3D targetPos = new Point3D(0,0,0);
 
 	protected Color dragonColor, eyeColor, eyeColor2;
-
+	
+	private String[] names = new String[]{"Torsten", "Kevin", "Shawn Johannes Karl IIX", "Florian", "Wlad", "Nicholas", "Cassi", "Relhef"};
+	
 	//egg constructor
 	//gets egg, makes dragon
 	public Dragon(DragonEgg egg, String n) {
@@ -109,6 +114,7 @@ public class Dragon extends Actor {
 	public Dragon() { // full random 1-10, no overall caps
 		super(0, 0, null);
 		// this.id = from server?
+		this.name = names[(int) (Math.round( Math.random()* 8f ))];
 		this.baseHp = (int) (Math.random() * 5f + 5);
 		this.hp = baseHp;
 		this.hpMax = baseHp;
