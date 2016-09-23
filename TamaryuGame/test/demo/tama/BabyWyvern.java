@@ -39,11 +39,12 @@ public class BabyWyvern extends DragonAnimation{
 	public void setZ(float z){
 		float zDif = z - this.getPosition().z;
 		super.setZ(z);
-		
-		System.out.println("Set Z: "+z+"; ("+zDif+")");
+		//System.out.println("Set Z: "+z+"; ("+zDif+")");
 		for(TRGLAnimationView v : views){
 			v.setZ(v.getPosition().z + zDif);
 		}
+		
+		
 	}
 	
 
@@ -443,14 +444,16 @@ public class BabyWyvern extends DragonAnimation{
 
 		TRFrameAction action = new TRFrameAction();
 		action.path = "open";
-		action.posZFlag = true;
-		action.posZ = (int) (this.getPosition().z + 4);
+		action.incRef = ((TRGLAnimationView) this.getComponentByName("head.eyes"));
+		action.incZFlag = true;
+		action.incZ = 4;
 		frame.addAction(action);
 		
 		action = new TRFrameAction();
 		action.path = "closed";
-		action.posZFlag = true;
-		action.posZ = (int) (this.getPosition().z + 3);
+		action.incRef = ((TRGLAnimationView) this.getComponentByName("head.eyes"));
+		action.incZFlag = true;
+		action.incZ = 3;
 		frame.addAction(action);
 		
 		ani.setInitFram(frame);
@@ -460,14 +463,16 @@ public class BabyWyvern extends DragonAnimation{
 
 		action = new TRFrameAction();
 		action.path = "open";
-		action.posZFlag = true;
-		action.posZ = (int) (this.getPosition().z + 3);
+		action.incRef = ((TRGLAnimationView) this.getComponentByName("head.eyes"));
+		action.incZFlag = true;
+		action.incZ = 3;
 		frame1.addAction(action);
 		
 		action = new TRFrameAction();
 		action.path = "closed";
-		action.posZFlag = true;
-		action.posZ = (int) (this.getPosition().z + 4);
+		action.incRef = ((TRGLAnimationView) this.getComponentByName("head.eyes"));
+		action.incZFlag = true;
+		action.incZ = 4;
 		frame1.addAction(action);
 		
 		ani.setInitFram(frame);

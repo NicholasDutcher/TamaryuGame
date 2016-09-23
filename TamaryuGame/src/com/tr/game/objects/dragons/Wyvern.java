@@ -34,6 +34,14 @@ public class Wyvern extends Dragon {
 		this.idle = true;
 	}
 	
+	public void setIdleMove(boolean b){
+		this.allowIdleMove = b;
+		if(!b){
+			this.targetPos.x = this.getImage().getPosition().x;
+			this.targetPos.y = this.getImage().getPosition().y;
+		}
+	}
+	
 	protected void roundAction(long time){
 		// override me
 	}
@@ -143,6 +151,8 @@ public class Wyvern extends Dragon {
 			}else{
 				this.getImage().setY(Math.min(targetPos.y, getPosition().y+5));
 			}
+			
+			this.getImage().setZ(-10*this.getImage().getPosition().y/100);
 		}
 		
 		if(xr && yr){

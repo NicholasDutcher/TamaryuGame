@@ -1,6 +1,7 @@
 package com.tr.game.state.island;
 
 import com.tr.engine.grf.IRenderable;
+import com.tr.game.objects.Dragon;
 
 public class IslandMenueManager {
 	public static final int MENUE = 0;
@@ -9,6 +10,8 @@ public class IslandMenueManager {
 	
 	private IRenderable cur = null;
 	private IslandMenue menu = null;
+	
+	private Dragon statsTarget = null;
 	
 	private int curState = -1;
 	
@@ -30,11 +33,19 @@ public class IslandMenueManager {
 			break;
 		case STATS:
 			cur = new IslandMenueStats(this);
+			if(statsTarget != null)
+				((IslandMenueStats)cur).show(statsTarget);
 			break;
 		case INVENTORY: 
 			break;
 		}
 		menu.setContent(cur);
+	}
+	
+	public void setStatsTarget(Dragon d){
+		this.statsTarget = d;
+		if(curState == STATS)
+			((IslandMenueStats)cur).show(statsTarget);
 	}
 	
 

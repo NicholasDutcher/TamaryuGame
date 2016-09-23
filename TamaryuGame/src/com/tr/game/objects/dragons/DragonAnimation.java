@@ -25,6 +25,10 @@ public class DragonAnimation extends TRGLAnimationView implements TRDroparea {
 	public int getFieldHeight(){
 		return fieldH;
 	}
+	
+	public Dragon getRef(){
+		return ref;
+	}
 
 	@Override
 	public boolean drop(IRenderable o) {

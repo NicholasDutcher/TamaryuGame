@@ -47,7 +47,7 @@ public class IslandMenueStats extends TRGLImageView {
 		backB.setZ(this.getPosition().z + 1);
 		this.addComponent(backB);
 		
-		show(new Dragon());
+		//show(new Dragon());
 	}
 	
 	public void show(Dragon d){
