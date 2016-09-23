@@ -2,12 +2,14 @@ package com.tr.game.state.tc;
 
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRLabel;
+import com.tr.engine.components.TRTextButton;
 import com.tr.engine.gameobject.AbstractGameObject;
 import com.tr.engine.grf.Color;
 import com.tr.engine.grf.TRRenderContext;
 import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.game.objects.TamaProgressBar;
+import com.tr.game.objects.TamaryuButton;
 import com.tr.gl.core.GLCamera;
 import com.tr.gl.core.Point3D;
 import com.tr.util.LanguageTranslator;
@@ -29,6 +31,8 @@ public class TCInterface extends TRGLImageView {
 	private TCFruit matchType = null;
 	private TRLabel timesLabel = TRComponentManager.getLabel(" x ");
 	private TRLabel countLabel = TRComponentManager.getLabel("0");
+	
+	private TRTextButton backB = new TamaryuButton(LanguageTranslator.getString("quit"));
 	
 	private TCDropListener dl = null;
 	
@@ -60,6 +64,11 @@ public class TCInterface extends TRGLImageView {
 		
 		countLabel.setPosition(20+42+5+timesLabel.getWidth()+5, (h-fieldHeight)/3*2-50+Math.round((42-38)/2), 32);
 		this.addComponent(countLabel);
+		
+		backB.setSize(w, backB.getHeight());
+		backB.setAlignment(TRLabel.CENTER);
+		backB.setPosition(0, (h-fieldHeight)/3*2-50+Math.round((42-38)/2)+2-50, 35);
+		this.addComponent(backB);
 		
 		initField();
 	}
