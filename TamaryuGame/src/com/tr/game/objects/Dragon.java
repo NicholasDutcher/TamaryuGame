@@ -1,8 +1,5 @@
 package com.tr.game.objects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.tr.engine.gameobject.Actor;
 import com.tr.engine.grf.Color;
 import com.tr.engine.grf.IRenderable;
