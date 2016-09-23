@@ -44,23 +44,23 @@ public class DragonEgg extends Actor {
 	//breeded Egg
 	//ranks inherited, stats random
 	//no overall caps
-	public DragonEgg(int hpR, int mpR, int staminaR, int attackR, int defenseR, int speedR, String p1, String p2) {
+	public DragonEgg(int bhp, int hpr, int bmp, int mpr, int bstam, int stamr, int batk, int atkr, int bdef, int defr, int bspd, int spdr, String p1, String p2) {
 		super(0, 0, null);
 		// this.id = from server?
 		this.parent1 = p1;
 		this.parent2 = p2;
-		this.baseHp = (int) (Math.random() * 10f);
-		this.hpRank = hpR;
-		this.baseMp = (int) (Math.random() * 10f);
-		this.mpRank = mpR;
-		this.baseStamina = (int) (Math.random() * 10f);
-		this.staminaRank = staminaR;
-		this.baseAttack = (int) (Math.random() * 10f);
-		this.attackRank = attackR;
-		this.baseDefense = (int) (Math.random() * 10f);
-		this.defenseRank = defenseR;
-		this.baseSpeed = (int) (Math.random() * 10f);
-		this.speedRank = speedR;
+		this.baseHp = bhp;
+		this.hpRank = hpr;
+		this.baseMp = bmp;
+		this.mpRank = mpr;
+		this.baseStamina = bstam;
+		this.staminaRank = stamr;
+		this.baseAttack = batk;
+		this.attackRank = atkr;
+		this.baseDefense = bdef;
+		this.defenseRank = defr;
+		this.baseSpeed = bspd;
+		this.speedRank = spdr;
 		//this.type = not implemented yet;
 	}
 
@@ -141,7 +141,9 @@ public class DragonEgg extends Actor {
 		return sb.toString();
 	}
 
-	public void hatch() {
+	public void hatch(String n) {
+		//drache aus ei erzeugen???
+		Dragon n = new Dragon(this);
 		
 	}
 	
