@@ -21,7 +21,7 @@ public class DragonEgg extends Actor {
 
 
 	//random Egg
-	// full random 1-10
+	//full random 5-10
 	//no overall caps
 	public DragonEgg() {
 		super(0, 0, null);
@@ -142,9 +142,9 @@ public class DragonEgg extends Actor {
 	}
 
 	public Dragon hatch(String n) {
-		//drache aus ei erzeugen???
 		
 		return new Dragon(this, n);
+		//egg removal should be done in the method that calls hatch()
 	}
 	
 	protected void roundAction(long time){

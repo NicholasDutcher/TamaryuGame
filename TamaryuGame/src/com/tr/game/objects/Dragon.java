@@ -111,12 +111,15 @@ public class Dragon extends Actor {
 		// this.id = from server?
 		this.baseHp = (int) (Math.random() * 5f + 5);
 		this.hp = baseHp;
+		this.hpMax = baseHp;
 		this.hpRank = baseHp / 2;
 		this.baseMp = (int) (Math.random() * 5f + 5);
 		this.mp = baseMp;
+		this.mpMax = baseMp;
 		this.mpRank = baseMp / 2;
 		this.baseStamina = (int) (Math.random() * 5f + 5);
 		this.stamina = baseStamina;
+		this.staminaMax = baseStamina;
 		this.staminaRank = baseStamina / 2;
 		this.baseAttack = (int) (Math.random() * 5f + 5);
 		this.attack = baseAttack;
@@ -305,6 +308,7 @@ public class Dragon extends Actor {
 
 	public void feed(Food f) {
 		// this.race += f.;
+		if(this.hunger + f.hunger <= 100){		
 		this.hp += f.hp;
 		this.mp += f.mp;
 		this.stamina += f.stamina;
@@ -314,11 +318,14 @@ public class Dragon extends Actor {
 		this.mood += f.mood;
 		this.hunger += f.hunger;
 		this.thirst += f.thirst;
-		this.weight += f.weight;
-		this.size += f.size;
-
+		//this.weight += f.weight;
+		//this.size += f.size;
 		// if(f.sex != null) this.sex = f.sex; //default von boolean?
-
+		
+		//remove food from invetory
+		}else{
+			//action denied
+		}
 	}
 
 	public void sleep() { // erhöht stamina regeneration, mood... evtl
