@@ -49,6 +49,63 @@ public class Dragon extends Actor {
 
 	protected Color dragonColor, eyeColor, eyeColor2;
 
+	//egg constructor
+	//gets egg, makes dragon
+	public Dragon(DragonEgg egg, String n) {
+		super(0, 0, null);
+		// this.id = from server?
+
+		this.name = n;
+		this.id = egg.getId();
+
+		this.parent1 = egg.getParent1();
+		this.parent2 = egg.getParent2();
+		this.type = egg.getType();
+		
+		this.hp = egg.getBaseHp();
+		this.hpMax = egg.getBaseHp();
+		this.baseHp = egg.getBaseHp();
+		this.hpRank = egg.getHpRank();
+		
+		this.mp = egg.getBaseMp();
+		this.mpMax = egg.getBaseMp();
+		this.baseMp = egg.getBaseMp();
+		this.mpRank = egg.getMpRank();
+
+		this.stamina = egg.getBaseStamina();
+		this.staminaMax = egg.getBaseStamina();
+		this.baseStamina = egg.getBaseStamina();
+		this.staminaRank = egg.getStaminaRank();
+
+		this.attack = egg.getBaseAttack();
+		this.baseAttack = egg.getBaseAttack();
+		this.attackRank = egg.getAttackRank();
+
+		this.defense = egg.getBaseDefense();
+		this.baseDefense = egg.getBaseDefense();
+		this.defenseRank = egg.getDefenseRank();
+
+		this.speed = egg.getBaseSpeed();
+		this.baseSpeed = egg.getBaseSpeed();
+		this.speedRank = egg.getSpeedRank();
+
+		this.mood = 100;
+		this.hunger = 100;
+		this.thirst = 100;
+		this.stage = 0;
+		this.sex = (Math.random() > 0.5f);
+
+		//this.fatigue = 0;
+		//this.sickness = 0;
+		// this.weight = (float) Math.random()+1; genau implementierung hängt
+		// von default ab...
+		// this.size = (float) Math.random()+1; genau implementierung hängt von
+		// default ab...
+
+		this.birthdate = System.currentTimeMillis();
+	}
+	
+	//old constructor for testing
 	public Dragon() { // full random 1-10, no overall caps
 		super(0, 0, null);
 		// this.id = from server?
@@ -88,84 +145,6 @@ public class Dragon extends Actor {
 		// rndm werte in abhängigekit von min max (noch mal ausmachen)
 	}
 
-	public Dragon(int hpR, int mpR, int staminaR, int attackR, int defenseR, int speedR, String p1, String p2) {
-		super(0, 0, null);
-		// this.id = from server?
-		this.parent1 = p1;
-		this.parent2 = p2;
-		this.baseHp = (int) (Math.random() * 10f);
-		this.hp = baseHp;
-		this.hpRank = hpR;
-		this.baseMp = (int) (Math.random() * 10f);
-		this.mp = baseMp;
-		this.mpRank = mpR;
-		this.baseStamina = (int) (Math.random() * 10f);
-		this.stamina = baseStamina;
-		this.staminaRank = staminaR;
-		this.baseAttack = (int) (Math.random() * 10f);
-		this.attack = baseAttack;
-		this.attackRank = attackR;
-		this.baseDefense = (int) (Math.random() * 10f);
-		this.defense = baseDefense;
-		this.defenseRank = defenseR;
-		this.baseSpeed = (int) (Math.random() * 10f);
-		this.speed = baseSpeed;
-		// this.speedRank = speedR;
-
-		// this.mood = full;
-		// this.hunger = full;
-		// this.thirst = full;
-		// this.type = not planned yet;
-		this.stage = 0;
-		this.sex = (Math.random() > 0.5f);
-		this.fatigue = 0;
-		this.sickness = 0;
-		// this.weight = (float) Math.random()+1; genau implementierung hängt
-		// von default ab...
-		// this.size = (float) Math.random()+1; genau implementierung hängt von
-		// default ab...
-
-		this.birthdate = System.currentTimeMillis();
-		// rndm werte in abhängigekit von min max (noch mal ausmachen)
-	}
-
-	// Dragon with values
-	public Dragon(int hp, int mp, int stamina, int attack, int defense, int speed) {
-		super(0, 0, null);
-		// this.id = from server?
-		this.hp = hp;
-		this.mp = mp;
-		this.stamina = stamina;
-		this.attack = attack;
-		this.defense = defense;
-		this.speed = speed;
-		this.baseHp = hp;
-		this.baseMp = mp;
-		this.baseStamina = stamina;
-		this.baseAttack = attack;
-		this.baseDefense = defense;
-		this.baseSpeed = speed;
-		this.hpRank = hp / 2;
-		this.mpRank = mp / 2;
-		this.staminaRank = stamina / 2;
-		this.attackRank = attack / 2;
-		this.defenseRank = defense / 2;
-		this.speedRank = speed / 2;
-		// this.mood = full;
-		// this.hunger = full;
-		// this.thirst = full;
-		// this.type = not planned yet;
-		this.stage = 0;
-		this.sex = (Math.random() > 0.5f);
-		this.fatigue = 0;
-		this.sickness = 0;
-		// this.weight = (float) Math.random()+1; genau implementierung hängt
-		// von default ab...
-		// this.size = (float) Math.random()+1; genau implementierung hängt von
-		// default ab...
-
-		this.birthdate = System.currentTimeMillis();
-	}
 
 	public void setName(String s) {
 		this.name = s;
@@ -173,6 +152,18 @@ public class Dragon extends Actor {
 
 	public String getName() {
 		return this.name;
+	}
+
+	public String getParent1(){
+		return this.parent1;
+	}
+
+	public String getParent2(){
+		return this.parent2;
+	}
+
+	public int getId(){
+		return this.id;
 	}
 
 	public int getHp() {
