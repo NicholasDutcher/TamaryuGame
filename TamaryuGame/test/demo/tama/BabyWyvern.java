@@ -11,9 +11,13 @@ import com.tr.game.objects.Dragon;
 import com.tr.game.objects.dragons.DragonAnimation;
 
 public class BabyWyvern extends DragonAnimation{
+	private float z = 0; 
+	
+	private ArrayList<TRGLAnimationView> views = new ArrayList<TRGLAnimationView>();
 
 	public BabyWyvern(int zIndex, Dragon d) {
 		super(zIndex, d);
+		z = zIndex;
 		this.setZ(zIndex);
 		this.setScale(0.5f);
 		buildAni();
@@ -32,6 +36,16 @@ public class BabyWyvern extends DragonAnimation{
 		//this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0, 1, 0, 0, 1));
 	}
 	
+	public void setZ(float z){
+		float zDif = z - this.getPosition().z;
+		super.setZ(z);
+		
+		System.out.println("Set Z: "+z+"; ("+zDif+")");
+		for(TRGLAnimationView v : views){
+			v.setZ(v.getPosition().z + zDif);
+		}
+	}
+	
 
 	private void buildAni() {
 		this.setSize(560, 800);
@@ -42,6 +56,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setName("body");
 		v.setSize(356, 340);
 		v.setZ(this.getPosition().z + 2);
+		views.add(v);
 		this.addComponent(v);
 
 		// add head
@@ -49,6 +64,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setName("head");
 		v.setSize(294, 294);
 		v.setZ(this.getPosition().z + 3);
+		views.add(v);
 		this.addComponent(v);
 		
 		// add legs
@@ -57,6 +73,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setSize(260, 336);
 		v.setPosition(255, 100, 0);
 		v.setZ(this.getPosition().z);
+		views.add(v);
 		this.addComponent(v);
 
 		// add right leg
@@ -66,6 +83,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setAnchor(125, 251, 0);
 		v.setZRotation(-30);
 		v.setZ(this.getPosition().z);
+		views.add(v);
 		this.getComponentByName("legs").addComponent(v);
 
 		// add left leg
@@ -76,6 +94,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setZRotation(-20);
 		//v.setPosition(255, 100, 0);
 		v.setZ(this.getPosition().z + 4);
+		views.add(v);
 		this.getComponentByName("legs").addComponent(v);
 
 		// add tail
@@ -84,6 +103,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setSize(230, 210);
 		v.setPosition(330, 290, 0);
 		v.setZ(this.getPosition().z+1);
+		views.add(v);
 		this.addComponent(v);
 		
 		// add wings
@@ -92,6 +112,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setSize(220, 220);
 		v.setPosition(264, 435, 0);
 		v.setZ(this.getPosition().z);
+		views.add(v);
 		this.addComponent(v);
 
 		// add wing right
@@ -102,6 +123,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setAnchor(17, 41, 0);
 		v.setPosition(0, 0, 0);
 		v.setZ(this.getPosition().z);
+		views.add(v);
 		this.getComponentByName("wings").addComponent(v);
 
 		// add wing left
@@ -110,6 +132,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setSize(220, 220);
 		//v.setPosition(264, 435, 0);
 		v.setZ(this.getPosition().z+4);
+		views.add(v);
 		this.getComponentByName("wings").addComponent(v);
 
 		// add eye
@@ -118,6 +141,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setSize(100, 120);
 		v.setPosition(22, 77, 0);
 		v.setZ(this.getPosition().z + 3);
+		views.add(v);
 		this.getComponentByName("head").addComponent(v);
 		
 		v = new TRGLAnimationView();
@@ -125,6 +149,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setSize(100, 120);
 		v.setPosition(0, 0, 0);
 		v.setZ(this.getPosition().z + 3);
+		views.add(v);
 		this.getComponentByName("head.eyes").addComponent(v);
 		
 		v = new TRGLAnimationView();
@@ -132,6 +157,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setSize(100, 120);
 		v.setPosition(0, 0, 0);
 		v.setZ(this.getPosition().z + 4);
+		views.add(v);
 		this.getComponentByName("head.eyes").addComponent(v);
 	}
 

@@ -6,14 +6,12 @@ import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRTextButton;
 import com.tr.engine.components.gl.TRGLLabel;
 import com.tr.engine.grf.IRenderable;
-import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLAnimationView;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.img.TRImage;
 import com.tr.engine.img.ani.TRAnimation;
 import com.tr.engine.img.ani.TRFrame;
 import com.tr.engine.img.ani.TRFrameAction;
-import com.tr.gl.core.GLCamera;
 
 public class IslandMenueAnimation extends TRGLImageView {
 
@@ -33,7 +31,7 @@ public class IslandMenueAnimation extends TRGLImageView {
 	public IslandMenueAnimation() {
 		this.setFixedPosition(FIXED_POS_TOP_RIGHT);
 		this.setSize(SCROLL_WIDTH, SCROLL_HEAD_HEIGHT);
-		this.setZ(10);
+		this.setZ(40);
 		init();
 		//this.setRenderPropertie(new TRRenderPropertie(TRRenderPropertie.USE_TEXTURE, 0, 1,0,0,1));
 	}
@@ -45,6 +43,16 @@ public class IslandMenueAnimation extends TRGLImageView {
 
 		this.addComponent(scrollBody);
 		scrollBody.start();
+	}
+	
+	public void setPosition(float x, float y, float z){
+		super.setPosition(x, y, z);
+		
+		scrollBody.setPosition(scrollBody.getPosition().x, 
+				scrollBody.getPosition().z, this.getPosition().z-10);
+		
+		button.setPosition(button.getPosition().x, 
+				button.getPosition().y, this.getPosition().z+5);
 	}
 
 	public void initButton() {
@@ -76,14 +84,14 @@ public class IslandMenueAnimation extends TRGLImageView {
 		scrollBody.setSize(SCROLL_WIDTH, SCROLL_BODY_MIN_HEIGHT - SCROLL_BODY_OFFSET);
 		// scrollBody.setPosition(0, SCROLL_HEAD_HEIGHT - SCROLL_OFFSET, -1);
 		createScrollAnimation();
-		scrollBody.setZ(4);
+		//scrollBody.setZ(20);
 		scrollBody.setClipping(true);
 	}
 	
 	public void setContent(IRenderable r){
 		if(r == null)
 			return;
-		r.setPosition(0, 446, scrollBody.getPosition().z+2);
+		r.setPosition(0, 446, this.getPosition().z-9);
 		scrollBody.addComponent(r);
 		//GLCamera.printFloatMatrix(scrollBody.getModelMatrix().getMatrix(), 4 , 4);
 		//System.out.println("ScrollBody: "+scrollBody.getWidth()+" x "+scrollBody.getHeight());

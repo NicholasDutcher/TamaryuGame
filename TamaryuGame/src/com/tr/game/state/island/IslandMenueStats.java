@@ -1,6 +1,8 @@
 package com.tr.game.state.island;
 
+import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRLabel;
+import com.tr.engine.grf.Color;
 import com.tr.engine.grf.TRRenderContext;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.game.objects.Dragon;
@@ -14,6 +16,7 @@ public class IslandMenueStats extends TRGLImageView {
 	private TamaryuButton backB = null;
 	
 	private IslandMenueManager manager = null;
+	private TRLabel nameL = TRComponentManager.getLabel("null");
 	private TamaTextStat atkStat = new TamaTextStat("null", 0);
 	private TamaTextStat defStat = new TamaTextStat("null", 0);
 	private TamaProgressStat hpStat = new TamaProgressStat("null", 0, 10, 5);
@@ -56,6 +59,9 @@ public class IslandMenueStats extends TRGLImageView {
 		defStat.setName("Def.");
 		defStat.setValue(d.getDefense());
 		
+		nameL.setText(d.getName());
+		nameL.setColor(Color.ORANGE);
+		
 		hpStat.setName("HP");
 		hpStat.setMinValue(0);
 		hpStat.setMaxValue(d.getHpMax());
@@ -71,17 +77,19 @@ public class IslandMenueStats extends TRGLImageView {
 		moodStat.setMaxValue(100);
 		moodStat.setValue(d.getMood());
 		
-		atkStat.setPosition(80, -40, this.getPosition().z+10);
-		defStat.setPosition(80, -80, this.getPosition().z+10);
-		hpStat.setPosition(80, -140, this.getPosition().z+10);
-		hungerStat.setPosition(80, -200, this.getPosition().z+10);
-		moodStat.setPosition(80, -260, this.getPosition().z+10);
+		nameL.setPosition(80, -30, this.getPosition().z+2);
+		atkStat.setPosition(80, -70, this.getPosition().z+2);
+		defStat.setPosition(80, -110, this.getPosition().z+2);
+		hpStat.setPosition(80, -170, this.getPosition().z+2);
+		hungerStat.setPosition(80, -230, this.getPosition().z+2);
+		moodStat.setPosition(80, -280, this.getPosition().z+2);
 		
 		this.addComponent(atkStat);
 		this.addComponent(defStat);
 		this.addComponent(hpStat);
 		this.addComponent(hungerStat);
 		this.addComponent(moodStat);
+		this.addComponent(nameL);
 		
 		dragon =d;
 		showen = true;
@@ -93,6 +101,7 @@ public class IslandMenueStats extends TRGLImageView {
 		this.removeComponent(hpStat);
 		this.removeComponent(hungerStat);
 		this.removeComponent(moodStat);
+		this.removeComponent(nameL);
 		
 		dragon = null;
 		showen = false;
@@ -117,8 +126,12 @@ public class IslandMenueStats extends TRGLImageView {
 	
 	public void setPosition(float x, float y, float z){
 		super.setPosition(x, y, z);
-		backB.setZ(z+1);
-		atkStat.setZ(z+1);
-		defStat.setZ(z+1);
+		backB.setPosition(backB.getPosition().x, backB.getPosition().y,z+2);
+		atkStat.setPosition(atkStat.getPosition().x, atkStat.getPosition().y,z+2);
+		defStat.setPosition(defStat.getPosition().x, defStat.getPosition().y,z+2);
+		hpStat.setPosition(hpStat.getPosition().x, hpStat.getPosition().y,z+2);
+		hungerStat.setPosition(hungerStat.getPosition().x, hungerStat.getPosition().y,z+2);
+		moodStat.setPosition(moodStat.getPosition().x, moodStat.getPosition().y,z+2);
+		nameL.setPosition(nameL.getPosition().x, nameL.getPosition().y,z+2);
 	}
 }

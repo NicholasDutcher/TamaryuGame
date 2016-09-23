@@ -57,7 +57,7 @@ public class TamaProgressStat extends TRGLImageView{
 		this.bar.setSize(120, 20);
 		this.bar.setPosition(25, 5, (int) (this.getPosition().z+1));
 		this.maxValue.setScale(0.6f);
-		this.maxValue.setPosition(160/0.6f, 6, this.getPosition().z+1);
+		this.maxValue.setPosition(150/0.6f, 6, this.getPosition().z+1);
 	}
 	
 	public void setPosition(float x, float y, float z){

@@ -26,6 +26,8 @@ public class Wyvern extends Dragon {
 	protected int maxIdleMovePause = 10000;
 	protected long nextIdleMove = 0;
 	
+	protected boolean firstCall = true;
+	
 	public Wyvern(){
 		super();
 		this.setImage(new BabyWyvern(1, this));
@@ -37,6 +39,18 @@ public class Wyvern extends Dragon {
 	}
 	
 	public void updateAction(long time){
+		if(firstCall){
+			if(getMaxX() < 0 || getMaxY() < 0)
+				return;
+			float x = Math.round(Math.random()*getMaxX());
+			float y = Math.round(Math.random()*getMaxY());
+			float z = -10*(y/100f);
+			this.getImage().setPosition(x, y, this.getImage().getPosition().z);
+			this.targetPos = new Point3D(x,y,0);
+			this.getImage().setZ(z);
+			firstCall = false;
+		}
+		
 		if(this.blink){
 			if((nextBlink - time) < 0){
 				this.blink();
@@ -66,10 +80,9 @@ public class Wyvern extends Dragon {
 			if(this.allowIdleMove && !this.moving && !this.flying){
 				if(this.idleMoveReady){
 					if((nextIdleMove - time) < 0){
-						float s = getImage().getScale();
-						int maxX = (int) ((this.getFieldSize()[0] - this.getImage().getWidth()*s)/s);
+						int maxX = getMaxX();
 						int minX = 0, minY = 0;
-						int maxY = (int) ((this.getFieldSize()[1] - this.getImage().getHeight()*s)/s);
+						int maxY = getMaxY();
 						this.targetPos = new Point3D(Math.round(Math.random()*(maxX - minX)+minX), 
 								Math.round(Math.random()*(maxY - minY)*0.75f+minY), 0f);
 						this.idleMoveReady = false;
@@ -92,6 +105,16 @@ public class Wyvern extends Dragon {
 		}
 
 		move();
+	}
+	
+	private int getMaxX(){
+		float s = getImage().getScale();
+		return (int) ((this.getFieldSize()[0] - this.getImage().getWidth()*s)/s);
+	}
+	
+	private int getMaxY(){
+		float s = getImage().getScale();
+		return (int) ((this.getFieldSize()[1] - this.getImage().getHeight()*s)/s);
 	}
 	
 	public void move(){
