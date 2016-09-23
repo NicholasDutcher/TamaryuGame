@@ -314,13 +314,16 @@ public class Dragon extends Actor {
 
 	public void feed(Food f) {
 		// this.race += f.;
-		if(this.hunger + f.hunger <= 100){		
+		if(this.hunger + f.hunger <= 100){
 		this.hp += f.hp;
 		this.mp += f.mp;
 		this.stamina += f.stamina;
-		this.attack += f.attack;
-		this.defense += f.defense;
-		this.speed += f.speed;
+		this.hpMax += (f.hpMax * this.hpRank /3);
+		this.mpMax += (f.mpMax * this.mpRank /3);
+		this.staminaMax += (f.staminaMax * this.staminaRank /3);
+		this.attack += (f.attack * this.attackRank /3);
+		this.defense += (f.defense * this.defenseRank /3);
+		this.speed += (f.speed * this.speedRank /3);
 		this.mood += f.mood;
 		this.hunger += f.hunger;
 		this.thirst += f.thirst;

@@ -9,7 +9,7 @@ public class Food extends InventoryItem{
 		// TODO Auto-generated constructor stub
 	}
 	protected String race;
-	protected int hp, mp, stamina, attack, defense, speed, mood, hunger, thirst;
+	protected int hp, hpMax, mp, mpMax, stamina, staminaMax, attack, defense, speed, mood, hunger, thirst;
 	protected boolean sex;
 	protected float weight, size;
 	
