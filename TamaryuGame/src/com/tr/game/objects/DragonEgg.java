@@ -141,10 +141,10 @@ public class DragonEgg extends Actor {
 		return sb.toString();
 	}
 
-	public void hatch(String n) {
+	public Dragon hatch(String n) {
 		//drache aus ei erzeugen???
-		Dragon n = new Dragon(this);
 		
+		return new Dragon(this, n);
 	}
 	
 	protected void roundAction(long time){

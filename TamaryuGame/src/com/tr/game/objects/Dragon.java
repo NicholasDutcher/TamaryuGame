@@ -342,41 +342,6 @@ public class Dragon extends Actor {
 	 * beeinflussung durch base values.
 	 */
 
-	/*
-	 * simple 50/50 combination. both parents base values /2 and added up
-	 */
-	public Dragon breed1(Dragon that) {
-		int hp = (this.getBaseHp() + that.getBaseHp()) / 2;
-
-		int mp = (this.getBaseMp() + that.getBaseMp()) / 2;
-		int stamina = (this.getBaseStamina() + that.getBaseStamina()) / 2;
-		int attack = (this.getBaseAttack() + that.getBaseAttack()) / 2;
-		int defense = (this.getBaseDefense() + that.getBaseDefense()) / 2;
-		int speed = (this.getBaseSpeed() + that.getBaseSpeed()) / 2;
-
-		return new Dragon(hp, mp, stamina, attack, defense, speed);
-
-	}
-
-	/*
-	 * from-to random. randomized value between the parents. not that good IMO,
-	 * but maybe of some use in another case
-	 */
-	public Dragon breed2(Dragon that) {
-		int maxHp = Math.max(this.getBaseHp(), that.getBaseHp());
-		int minHp = Math.min(this.getBaseHp(), that.getBaseHp());
-		int hp = minHp + (int) (Math.random() * (float) (maxHp - minHp));
-
-		// rest not implemented yet
-		int mp = (this.getBaseMp() + that.getBaseMp()) / 2;
-		int stamina = (this.getBaseStamina() + that.getBaseStamina()) / 2;
-		int attack = (this.getBaseAttack() + that.getBaseAttack()) / 2;
-		int defense = (this.getBaseDefense() + that.getBaseDefense()) / 2;
-		int speed = (this.getBaseSpeed() + that.getBaseSpeed()) / 2;
-
-		return new Dragon(hp, mp, stamina, attack, defense, speed);
-
-	}
 
 	public int alteredRandom() {
 		double up = Math.random();
@@ -393,31 +358,6 @@ public class Dragon extends Actor {
 		} else {
 			return 0;
 		}
-
-	}
-
-	/*
-	 * random +- from parent average. takes the center of the parent's values.
-	 * adds value from -3 to 3 (in this case). my personal favorite. no
-	 * over-breeding due to cap at 10.
-	 * 
-	 */
-	public Dragon breed3(Dragon that) {
-		int hp = (this.getBaseHp() + that.getBaseHp()) / 2 - 2 + alteredRandom();
-		hp = (hp > 10) ? 10 : hp;
-
-		int mp = (this.getBaseMp() + that.getBaseMp()) / 2 - 2 + alteredRandom();
-		mp = (mp > 10) ? 10 : mp;
-		int stamina = (this.getBaseStamina() + that.getBaseStamina()) / 2 - 2 + alteredRandom();
-		stamina = (stamina > 10) ? 10 : stamina;
-		int attack = (this.getBaseAttack() + that.getBaseAttack()) / 2 - 2 + alteredRandom();
-		attack = (attack > 10) ? 10 : attack;
-		int defense = (this.getBaseDefense() + that.getBaseDefense()) / 2 - 2 + alteredRandom();
-		defense = (defense > 10) ? 10 : defense;
-		int speed = (this.getBaseSpeed() + that.getBaseSpeed()) / 2 - 2 + alteredRandom();
-		speed = (speed > 10) ? 10 : speed;
-
-		return new Dragon(hp, mp, stamina, attack, defense, speed);
 
 	}
 
@@ -453,60 +393,38 @@ public class Dragon extends Actor {
 		}
 	}
 
-	/*
-	 * approach of Breed3 but this only affects the rank.
-	 */
-	public Dragon breed3b(Dragon that) {
+	public DragonEgg breed(Dragon that){
+		int bHp = (this.getBaseHp() + that.getBaseHp()) / 2 - 2 + alteredRandom();
+		bHp = (bHp > 10) ? 10 : bHp;
 
-		int hp = (this.getHpRank() + that.getHpRank()) / 2 + rankDivergence();
-		hp = checkRank(hp);
+		int bMp = (this.getBaseMp() + that.getBaseMp()) / 2 - 2 + alteredRandom();
+		bMp = (bMp > 10) ? 10 : bMp;
+		int bStam = (this.getBaseStamina() + that.getBaseStamina()) / 2 - 2 + alteredRandom();
+		bStam = (bStam > 10) ? 10 : bStam;
+		int bAtk = (this.getBaseAttack() + that.getBaseAttack()) / 2 - 2 + alteredRandom();
+		bAtk = (bAtk > 10) ? 10 : bAtk;
+		int bDef = (this.getBaseDefense() + that.getBaseDefense()) / 2 - 2 + alteredRandom();
+		bDef = (bDef > 10) ? 10 : bDef;
+		int bSpd = (this.getBaseSpeed() + that.getBaseSpeed()) / 2 - 2 + alteredRandom();
+		bSpd = (bSpd > 10) ? 10 : bSpd;		
 
-		int mp = (this.getMpRank() + that.getMpRank()) / 2 + rankDivergence();
-		mp = checkRank(mp);
-		int stamina = (this.getStaminaRank() + that.getStaminaRank()) / 2 + rankDivergence();
-		stamina = checkRank(stamina);
-		int attack = (this.getAttackRank() + that.getAttackRank()) / 2 + rankDivergence();
-		attack = checkRank(attack);
-		int defense = (this.getDefenseRank() + that.getDefenseRank()) / 2 + rankDivergence();
-		defense = checkRank(defense);
-		int speed = (this.getSpeedRank() + that.getSpeedRank()) / 2 + rankDivergence();
-		speed = checkRank(speed);
+		int hpR = (this.getHpRank() + that.getHpRank()) / 2 + rankDivergence();
+		hpR = checkRank(hpR);
 
-		// return won't work properly
-		// since the constructor is inappropriate
-		return new Dragon(hp, mp, stamina, attack, defense, speed, this.getName(), that.getName());
+		int mpR = (this.getMpRank() + that.getMpRank()) / 2 + rankDivergence();
+		mpR = checkRank(mpR);
+		int stamR = (this.getStaminaRank() + that.getStaminaRank()) / 2 + rankDivergence();
+		stamR = checkRank(stamR);
+		int atkR = (this.getAttackRank() + that.getAttackRank()) / 2 + rankDivergence();
+		atkR = checkRank(atkR);
+		int defR = (this.getDefenseRank() + that.getDefenseRank()) / 2 + rankDivergence();
+		defR = checkRank(defR);
+		int spdR = (this.getSpeedRank() + that.getSpeedRank()) / 2 + rankDivergence();
+		spdR = checkRank(spdR);
+		
+		return new DragonEgg(bHp, hpR, bMp, mpR, bStam, stamR, bAtk, atkR, bDef, defR, bSpd, spdR, this.getName(), that.getName());
 	}
-
-	/*
-	 * inheritance by development. not realistic but player oriented. pros:
-	 * sticks to the original status overalls. cons: base values go extremely
-	 * low when parent is extremely unbalanced
-	 */
-	public Dragon breed4(Dragon that) {
-		float overallBaseThis = this.getBaseHp() + this.getBaseMp() + this.getBaseStamina() + this.getBaseAttack()
-				+ this.getBaseDefense() + this.getBaseSpeed();
-		float overallThis = this.getHp() + this.getMp() + this.getStamina() + this.getAttack() + this.getDefense()
-				+ this.getSpeed();
-
-		float overallBaseThat = that.getBaseHp() + that.getBaseMp() + that.getBaseStamina() + that.getBaseAttack()
-				+ that.getBaseDefense() + that.getBaseSpeed();
-		float overallThat = that.getHp() + that.getMp() + that.getStamina() + that.getAttack() + that.getDefense()
-				+ that.getSpeed();
-
-		int hp = (int) (((float) this.getHp() / overallThis) * overallBaseThis
-				+ ((float) that.getHp() / overallThat) * overallBaseThat) / 2;
-
-		// rest not implemented yet
-		int mp = (this.getBaseMp() + that.getBaseMp()) / 2;
-		int stamina = (this.getBaseStamina() + that.getBaseStamina()) / 2;
-		int attack = (this.getBaseAttack() + that.getBaseAttack()) / 2;
-		int defense = (this.getBaseDefense() + that.getBaseDefense()) / 2;
-		int speed = (this.getBaseSpeed() + that.getBaseSpeed()) / 2;
-
-		return new Dragon(hp, mp, stamina, attack, defense, speed);
-
-	}
-
+	
 	public void evolve() { // details noch zu klären
 
 	}
