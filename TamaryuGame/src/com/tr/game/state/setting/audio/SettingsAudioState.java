@@ -1,4 +1,4 @@
-package com.tr.game.state.setting.main;
+package com.tr.game.state.setting.audio;
 
 import com.tr.engine.core.TRGameLooper;
 import com.tr.engine.grf.TRScene;
@@ -9,17 +9,17 @@ import com.tr.engine.sound.AudioMaster;
 import com.tr.game.core.states.TamaryuGameStateFactory;
 import com.tr.game.objects.TamaryuLogo;
 
-public class SettingState extends TRAbstractGameState
-{
+public class SettingsAudioState extends TRAbstractGameState {
+
 	private TRGLImageView bg = null;
-	private SettingButtons buttons = null;
+	private AudioButtons buttons = null;
 	private TamaryuLogo logo = new TamaryuLogo();
 
-	public SettingState() {
-		this(TamaryuGameStateFactory.SETTING_STATE, "SETTINGS_LANG");
+	public SettingsAudioState() {
+		this(TamaryuGameStateFactory.SETTING_AUDIO_STATE, "SETTINGS_AUDIO");
 	}
 
-	public SettingState(int id, String name) {
+	public SettingsAudioState(int id, String name) {
 		super(id, name);
 	}
 
@@ -30,11 +30,12 @@ public class SettingState extends TRAbstractGameState
 		gl.clear();
 		addComponents(scene);
 		scene.addComponent(logo);
-		
-		//Sound laden
-		String[] audios = new String[2];
-		audios[0] = "res/sound/Blob1.wav";
-		audios[1] = "res/sound/Drip1.wav";
+
+		// Sound laden
+		String[] audios = new String[3];
+		audios[0] = "res/sound/GitarrenLoop.wav";
+		audios[1] = "res/sound/Blob1.wav";
+		audios[2] = "res/sound/Drip1.wav";
 		AudioMaster.loadAudioFiles(audios);
 	}
 
@@ -53,7 +54,7 @@ public class SettingState extends TRAbstractGameState
 
 	private void addComponents(TRScene scene) {
 		scene.addComponent(bg);
-		buttons = new SettingButtons(scene);
+		buttons = new AudioButtons(scene);
 		scene.addComponent(buttons);
 	}
 

@@ -95,135 +95,32 @@ public class SettingButtons extends TRGLImageView
 			public void run()
 			{
 				AudioMaster.stopSource(0);
-				TRGameStateManager.setState(TamaryuGameStateFactory.ISLAND_STATE);
+				TRGameStateManager.setState(TamaryuGameStateFactory.MENU_STATE);
 			}
 		});
 		this.addComponent(backB);
 		gh += 10;
 
-		TRTextButton muteB = createButton(LanguageTranslator.getString("mutesound"));
-		muteB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
+		TRTextButton langB = createButton(LanguageTranslator.getString("language"));
+		langB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
+		{
+			@Override
+			public void run(){
+				TRGameStateManager.setState(TamaryuGameStateFactory.SETTING_LANG_STATE);
+			}
+		});
+		this.addComponent(langB);
+
+		TRTextButton audioB = createButton("Audio");
+		audioB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				if (AudioMaster.getVolume() != 0.0f)
-				{
-					AudioMaster.setVolume(0.0f);
-				}
+				TRGameStateManager.setState(TamaryuGameStateFactory.SETTING_AUDIO_STATE);
 			}
 		});
-		this.addComponent(muteB);
-
-		TRTextButton quaterVolumeB = createButton("Audio_Volume_25%");
-		quaterVolumeB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				if (AudioMaster.getVolume() != 0.25f)
-				{
-					AudioMaster.setVolume(0.25f);
-				}
-			}
-		});
-		this.addComponent(quaterVolumeB);
-		
-		TRTextButton halfVolumeB = createButton("Audio_Volume_50%");
-		halfVolumeB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				if (AudioMaster.getVolume() != 0.5f)
-				{
-					AudioMaster.setVolume(0.5f);
-				}
-			}
-		});
-		this.addComponent(halfVolumeB);
-		
-		TRTextButton gibbousVolumeB = createButton("Audio_Volume_75%");
-		gibbousVolumeB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				if (AudioMaster.getVolume() != 0.75f)
-				{
-					AudioMaster.setVolume(0.75f);
-				}
-			}
-		});
-		this.addComponent(gibbousVolumeB);
-		
-		TRTextButton fullVolumeB = createButton("Audio_Volume_100%");
-		fullVolumeB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				if (AudioMaster.getVolume() != 1.0f)
-				{
-					AudioMaster.setVolume(1.0f);
-				}
-			}
-		});
-		this.addComponent(fullVolumeB);
-		
-		// setGermanButton
-				final TRTextButton deB = createButton(LanguageTranslator.getString("german"));
-				deB.addStateChangeAction(TRTextButton.MOUSE_ENTER_ACTION, new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						deB.setColor(new Color(255f / 255f, 153f / 255f, 18f / 255f, 0f));
-						if(AudioMaster.isPlaying(0))
-						{
-							AudioMaster.stopSource(0);
-						}
-					}
-				});
-				deB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
-
-					@Override
-					public void run() {
-
-						if (!LanguageTranslator.getCurrentLanguage().contains("de")) {
-							LanguageTranslator.changeLanguage("de");
-							TRGameStateManager.reset();
-						}
-					}
-				});
-				this.addComponent(deB);
-
-				// setEnglishButton
-				final TRTextButton enB = createButton(LanguageTranslator.getString("english"));
-				enB.addStateChangeAction(TRTextButton.MOUSE_ENTER_ACTION, new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						enB.setColor(new Color(255f / 255f, 153f / 255f, 18f / 255f, 0f));
-						if(AudioMaster.isPlaying(0))
-						{
-							AudioMaster.stopSource(0);
-						}
-					}
-				});
-				enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
-
-					@Override
-					public void run() { 
-
-						if (!LanguageTranslator.getCurrentLanguage().contains("en")) {
-							LanguageTranslator.changeLanguage("en");
-							TRGameStateManager.reset();
-						}
-					}
-				});
-				this.addComponent(enB);
+		this.addComponent(audioB);
 		
 		for (IRenderable r : this.inComponents)
 		{

@@ -2,9 +2,12 @@ package com.tr.game.state.test;
 
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRLabel;
+import com.tr.engine.gameobject.AbstractGameObject;
 import com.tr.engine.grf.Color;
 import com.tr.engine.grf.TRRenderContext;
+import com.tr.engine.grf.TRRenderPropertie;
 import com.tr.engine.grf.gl.TRGLImageView;
+import com.tr.game.objects.TamaProgressBar;
 import com.tr.gl.core.GLCamera;
 import com.tr.gl.core.Point3D;
 import com.tr.util.LanguageTranslator;
@@ -22,6 +25,10 @@ public class TCInterface extends TRGLImageView {
 	private int fc = 0, fr = 0;
 	private TRGLImageView field = new TRGLImageView();
 	private TRLabel titel = TRComponentManager.getLabel(LanguageTranslator.getString("gametitel"));
+	private TamaProgressBar progress = new TamaProgressBar(0, 2000);
+	private TCFruit matchType = null;
+	private TRLabel timesLabel = TRComponentManager.getLabel(" x ");
+	private TRLabel countLabel = TRComponentManager.getLabel("0");
 	
 	private TCDropListener dl = null;
 	
@@ -42,7 +49,50 @@ public class TCInterface extends TRGLImageView {
 		titel.setColor(Color.ORANGE);
 		this.addComponent(titel);
 		
+		progress.setSize((int) Math.round(fieldWidth * 0.6), 20);
+		progress.setPosition(20+42+5+timesLabel.getWidth()+5+40,(h-fieldHeight)/3*2-50+Math.round((42-38)/2)+10, 32);
+		progress.setValue(0);
+		progress.setStepSize(0.04f);
+		this.addComponent(progress.getRenderable());
+		
+		timesLabel.setPosition(20+42+5, (h-fieldHeight)/3*2-50+Math.round((42-38)/2)+2, 32);
+		this.addComponent(timesLabel);
+		
+		countLabel.setPosition(20+42+5+timesLabel.getWidth()+5, (h-fieldHeight)/3*2-50+Math.round((42-38)/2), 32);
+		this.addComponent(countLabel);
+		
 		initField();
+	}
+	
+	public void setCount(int i){
+		countLabel.setText(""+i);
+	}
+	
+	public void setMatchType(TCFruit f){
+		if(matchType != null)
+			this.removeComponent(matchType);
+		matchType = f;
+		
+		matchType.setRenderPropertie(
+				new TRRenderPropertie(TRRenderPropertie.USE_OUTLINE, 3, 57 / 255f, 255 / 255f, 20 / 255f, 0));
+		matchType.active = false;
+		matchType.setSize(42, 42);
+		matchType.setPosition(20, (h-fieldHeight)/3*2-50, 32);
+		
+		this.addComponent(matchType);
+	}
+	
+	public void setMaxScore(float v){
+		progress.setValue(0);
+		progress.setMaxValue(v);
+	}
+	
+	public boolean addScore(float v){
+		return progress.increaseValue(v);
+	}
+	
+	public AbstractGameObject[] getUpdateable(){
+		return new AbstractGameObject[]{progress};
 	}
 	
 	public Point3D getTielPos(int c, int r){

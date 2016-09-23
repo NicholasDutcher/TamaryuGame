@@ -33,14 +33,20 @@ public class IslandMainState extends TRAbstractGameState {
 
 	@Override
 	public void load(TRScene scene, TRGameLooper gl) {
-		//AudioMaster.loadAudioFiles(audioFilePaths);
+		// AudioMaster.loadAudioFiles(audioFilePaths);
 		scene.addComponent(menue.getImage());
 		scene.addComponent(bg);
 		scene.addComponent(d1.getImage());
 		scene.addComponent(t1);
 		gl.add(menue);
 		gl.add(d1);
-		//scene.addMouseListener(menue.getButton());
+		// scene.addMouseListener(menue.getButton());
+
+		// Sound laden
+		String[] audios = new String[2];
+		audios[0] = "res/sound/Blob1.wav";
+		audios[1] = "res/sound/Drip1.wav";
+		AudioMaster.loadAudioFiles(audios);
 	}
 
 	@Override
@@ -52,8 +58,7 @@ public class IslandMainState extends TRAbstractGameState {
 		scene.removeComponent(t1);
 		gl.remove(menue);
 		gl.remove(d1);
-		//scene.removeMouseListener(menue.getButton());
+		// scene.removeMouseListener(menue.getButton());
 	}
-
 
 }

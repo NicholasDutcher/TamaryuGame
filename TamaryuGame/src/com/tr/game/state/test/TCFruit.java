@@ -6,6 +6,8 @@ public class TCFruit extends GameFood {
 	public volatile int column = 0;
 	public volatile int row = 0;
 	public ETCFruits type = null;
+	
+	public boolean active = true;
 
 	public TCFruit(ETCFruits fruit) {
 		super(fruit.getImg());

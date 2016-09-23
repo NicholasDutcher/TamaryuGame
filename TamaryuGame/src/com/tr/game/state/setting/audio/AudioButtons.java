@@ -1,4 +1,4 @@
-package com.tr.game.state.setting.lang;
+package com.tr.game.state.setting.audio;
 
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRLabel;
@@ -12,10 +12,10 @@ import com.tr.engine.sound.AudioMaster;
 import com.tr.game.core.states.TamaryuGameStateFactory;
 import com.tr.util.LanguageTranslator;
 
-public class LangButtons extends TRGLImageView {
+public class AudioButtons extends TRGLImageView {
 	private int gw = 0, gh = 0;
 
-	public LangButtons(TRScene s) {
+	public AudioButtons(TRScene s) {
 		super();
 		this.setPosition(0, 0, -15);
 		initButtons(s);
@@ -77,53 +77,77 @@ public class LangButtons extends TRGLImageView {
 		this.addComponent(backB);
 		gh += 10;
 		
-		
-		///////////////////////////////////////TESTING BY NICK//////////////////////////////////////////
-		
-		TRTextButton resultB = createButton(LanguageTranslator.getString("result"));
-		resultB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
-
+		//mute
+		TRTextButton muteB = createButton(LanguageTranslator.getString("mutesound"));
+		muteB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
+		{
 			@Override
-			public void run() {
-				AudioMaster.playSource(1);
-				TRGameStateManager.setState(TamaryuGameStateFactory.RESULT_STATE);
-				// TRGameStateManager.reset();
-			}
-		});
-		this.addComponent(resultB);
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		
-		
-		// setGermanButton
-		TRTextButton deB = createButton(LanguageTranslator.getString("german"));
-		deB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
-
-			@Override
-			public void run() {
-				// AudioMaster.playSource(1);
-				if (!LanguageTranslator.getCurrentLanguage().contains("de")) {
-					LanguageTranslator.changeLanguage("de");
-					TRGameStateManager.reset();
+			public void run()
+			{
+				if (AudioMaster.getVolume() != 0.0f)
+				{
+					AudioMaster.setVolume(0.0f);
 				}
 			}
 		});
-		this.addComponent(deB);
-
-		// setEnglishButton
-		TRTextButton enB = createButton(LanguageTranslator.getString("english"));
-		enB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
-
+		this.addComponent(muteB);
+		
+		//25%
+		TRTextButton quaterVolumeB = createButton("Audio Volume 25%");
+		quaterVolumeB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
+		{
 			@Override
-			public void run() { 
-				// AudioMaster.playSource(1);
-				if (!LanguageTranslator.getCurrentLanguage().contains("en")) {
-					LanguageTranslator.changeLanguage("en");
-					TRGameStateManager.reset();
+			public void run()
+			{
+				if (AudioMaster.getVolume() != 0.25f)
+				{
+					AudioMaster.setVolume(0.25f);
 				}
 			}
 		});
-		this.addComponent(enB);
+		this.addComponent(quaterVolumeB);
+
+		TRTextButton halfVolumeB = createButton("Audio Volume 50%");
+		halfVolumeB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				if (AudioMaster.getVolume() != 0.5f)
+				{
+					AudioMaster.setVolume(0.5f);
+				}
+			}
+		});
+		this.addComponent(halfVolumeB);
+		
+		TRTextButton gibbousVolumeB = createButton("Audio Volume 75%");
+		gibbousVolumeB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				if (AudioMaster.getVolume() != 0.75f)
+				{
+					AudioMaster.setVolume(0.75f);
+				}
+			}
+		});
+		this.addComponent(gibbousVolumeB);
+		
+		TRTextButton fullVolumeB = createButton("Audio Volume 100%");
+		fullVolumeB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				if (AudioMaster.getVolume() != 1.0f)
+				{
+					AudioMaster.setVolume(1.0f);
+				}
+			}
+		});
+		this.addComponent(fullVolumeB);
 
 		for (IRenderable r : this.inComponents) {
 			TRTextButton l = (TRTextButton) r;

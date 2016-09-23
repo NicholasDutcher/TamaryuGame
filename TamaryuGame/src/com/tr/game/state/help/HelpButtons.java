@@ -1,7 +1,5 @@
 package com.tr.game.state.help;
 
-import java.util.ArrayList;
-
 import com.tr.engine.components.TRComponentManager;
 import com.tr.engine.components.TRLabel;
 import com.tr.engine.components.TRTextButton;
@@ -11,6 +9,7 @@ import com.tr.engine.grf.TRScene;
 import com.tr.engine.grf.gl.TRGLImageView;
 import com.tr.engine.obj.state.TRGameStateManager;
 import com.tr.engine.sound.AudioMaster;
+import com.tr.game.core.states.TamaryuGameStateFactory;
 import com.tr.util.LanguageTranslator;
 
 public class HelpButtons extends TRGLImageView {
@@ -72,8 +71,8 @@ public class HelpButtons extends TRGLImageView {
 			@Override
 			public void run() {
 				AudioMaster.playSource(1);
-				TRGameStateManager.setState(7);
-				TRGameStateManager.reset();
+				TRGameStateManager.setState(TamaryuGameStateFactory.MENU_STATE);
+				//TRGameStateManager.reset();
 			}
 		});
 		this.addComponent(backB);

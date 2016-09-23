@@ -41,14 +41,14 @@ public class BabyWyvern extends DragonAnimation{
 		v = new TRGLAnimationView();
 		v.setName("body");
 		v.setSize(356, 340);
-		v.setZ(this.getPosition().z + 1);
+		v.setZ(this.getPosition().z + 2);
 		this.addComponent(v);
 
 		// add head
 		v = new TRGLAnimationView();
 		v.setName("head");
 		v.setSize(294, 294);
-		v.setZ(this.getPosition().z + 2);
+		v.setZ(this.getPosition().z + 3);
 		this.addComponent(v);
 		
 		// add legs
@@ -83,7 +83,7 @@ public class BabyWyvern extends DragonAnimation{
 		v.setName("tail");
 		v.setSize(230, 210);
 		v.setPosition(330, 290, 0);
-		v.setZ(this.getPosition().z);
+		v.setZ(this.getPosition().z+1);
 		this.addComponent(v);
 		
 		// add wings
@@ -207,13 +207,13 @@ public class BabyWyvern extends DragonAnimation{
 			
 			action.path = "rleg";
 			action.imgFlag = true;
-			action.img = new TRImage("llegDefault", "wyvern_baby_leg_260x336", "png", "/img", i1*260, 0, 0, 260, 336, 1560, 336);
+			action.img = new TRImage("llegDefault", "wyvern_baby_leg_260x336_2", "png", "/img", i1*260, 0, 0, 260, 336, 1560, 336);
 			frame.addAction(action);
 			
 			action = new TRFrameAction();
 			action.path = "lleg";
 			action.imgFlag = true;
-			action.img = new TRImage("llegDefault", "wyvern_baby_leg_260x336", "png", "/img", i2*260, 0, 0, 260, 336, 1560, 336);
+			action.img = new TRImage("llegDefault", "wyvern_baby_leg_260x336_2", "png", "/img", i2*260, 0, 0, 260, 336, 1560, 336);
 			frame.addAction(action);
 			
 			fs.add(frame);

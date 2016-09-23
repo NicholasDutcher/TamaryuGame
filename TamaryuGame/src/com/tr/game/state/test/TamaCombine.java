@@ -18,6 +18,14 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 	private TCFruit[][] fieldArr = new TCFruit[COLUMN_COUNT][ROW_COUNT];
 	private int swipFromCol = -1;
 	private int swipFromRow = -1;
+	
+	private ETCFruits matchType;
+	
+	private int level = 0;
+	private int baseScoreTarget = 2000;
+	private float levelScoreFactor = 0.5f;
+	private int matchScore = 50;
+	private float matchScoreFactor = 1.25f;
 
 	private volatile ArrayList<TCSwap> swaps = new ArrayList<TCSwap>();
 	private volatile ArrayList<TCSwap> swapsDelete = new ArrayList<TCSwap>();
@@ -34,6 +42,9 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 	public TamaCombine(int winHeight) {
 		super(0, 0, 0, 0);
 		ui = new TCInterface(winHeight, COLUMN_COUNT, ROW_COUNT, this);
+		matchType = ETCFruits.random();
+		ui.setMaxScore(baseScoreTarget + (baseScoreTarget*level*level*levelScoreFactor));
+		ui.setMatchType(new TCFruit(matchType));
 		// TODO
 		fillRandom();
 	}
@@ -57,6 +68,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 			}
 			detectPossibleMoves();
 		}while(possibleSwaps.size() == 0);
+		end = false;
 	}
 	
 	private void detectPossibleMoves(){
@@ -85,7 +97,6 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 						
 						if(hasChain(i+1, j) || hasChain(i, j)){
 							directSwap(t,f);
-							//System.out.println("["+i+", "+j+"] Pos swap!");
 							possibleSwaps.add(new TCSwap(f, t, fieldArr));
 						}else{
 							directSwap(t,f);
@@ -113,18 +124,21 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 				}
 			}
 		}
+		
+		System.out.println("Possible Moves: "+possibleSwaps.size());
+		if(possibleSwaps.size() <= 0)
+			end = true;
 	}
 	
 	private boolean hasChain(int col, int row){
 		int hl = 1, vl = 1;
 		
 		//hor
-		for(int i = col-1; i >= 0 && getElement(i, row).type.equals(getElement(col,row).type); i--, hl++){
-			//System.out.println(getElement(i, row).column+" -/- "+getElement(i, row).row);
-			//hl ++;
+		for(int i = col-1; i >= 0 && getElement(i, row).type.equals(getElement(col,row).type); i--){
+			hl++;
 		}
-		for(int i = col+1; i < COLUMN_COUNT  && getElement(i, row).type.equals(getElement(col,row).type); i++, hl++){
-			//hl ++;
+		for(int i = col+1; i < COLUMN_COUNT  && getElement(i, row).type.equals(getElement(col,row).type); i++){
+			hl ++;
 		}
 		if(hl >= 3)
 			return true;
@@ -203,7 +217,12 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 		tmp = searchHChains();
 		tmp.addAll(searchVChains());
 		for(int i = 0; i< tmp.size(); i++){
-			//TODO add score !
+			int chainScore = matchScore*3+Math.round((tmp.get(i).getLength()-3)*matchScore*matchScoreFactor);
+			if(tmp.get(i).type.equals(matchType) && ui.addScore(chainScore)){
+				level++;
+				ui.setCount(level);
+				ui.setMaxScore(baseScoreTarget + (baseScoreTarget*level*level*levelScoreFactor));
+			}
 			for(TCFruit f : tmp.get(i).fruits){
 				if(!fruits.contains(f)){
 					fruits.add(f);
@@ -275,6 +294,7 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 	@Override
 	public void update(long ct) {
 		if(end){
+			System.out.println("No moves left!");
 			return;
 		}
 		synchronized (swapLock) {
@@ -468,6 +488,8 @@ public class TamaCombine extends AbstractGameObject implements TCDropListener, I
 			return;
 		if (e.src instanceof TCFruit) {
 			TCFruit f = (TCFruit) e.src;
+			if(!f.active)
+				return;
 			this.swipFromCol = f.column;
 			this.swipFromRow = f.row;
 			f.setRenderPropertie(

@@ -96,13 +96,13 @@ public class MenueButtons extends TRGLImageView {
 		this.addComponent(helpB);
 
 		// languageButton
-		TRTextButton langB = createButton(LanguageTranslator.getString("language"));
+		TRTextButton langB = createButton(LanguageTranslator.getString("settings"));
 		langB.addStateChangeAction(TRTextButton.MOUSE_UP_ACTION, new Runnable() {
 
 			@Override
 			public void run() {
 				AudioMaster.playSource(1);
-				TRGameStateManager.setState(TamaryuGameStateFactory.SETTING_LANG_STATE);
+				TRGameStateManager.setState(TamaryuGameStateFactory.SETTING_STATE);
 			}
 		});
 		this.addComponent(langB);

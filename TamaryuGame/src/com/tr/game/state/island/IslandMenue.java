@@ -37,7 +37,7 @@ public class IslandMenue extends Decoration {
 	}
 	
 	public void removeContent(IRenderable r){
-		this.ani.removeComponent(r);
+		this.ani.removeContent(r);
 	}
 
 	private void startScroll() {

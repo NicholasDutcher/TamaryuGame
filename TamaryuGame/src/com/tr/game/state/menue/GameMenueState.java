@@ -16,7 +16,7 @@ public class GameMenueState extends TRAbstractGameState {
 	private TamaryuLogo logo = new TamaryuLogo();
 
 	public GameMenueState() {
-		this(TamaryuGameStateFactory.SETTING_STATE, "Game_Menue");
+		this(TamaryuGameStateFactory.MENU_STATE, "Game_Menue");
 	}
 
 	public GameMenueState(int id, String name) {

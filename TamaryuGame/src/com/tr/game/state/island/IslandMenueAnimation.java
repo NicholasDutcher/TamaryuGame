@@ -88,6 +88,12 @@ public class IslandMenueAnimation extends TRGLImageView {
 		//GLCamera.printFloatMatrix(scrollBody.getModelMatrix().getMatrix(), 4 , 4);
 		//System.out.println("ScrollBody: "+scrollBody.getWidth()+" x "+scrollBody.getHeight());
 	}
+	
+	public void removeContent(IRenderable r){
+		if(r == null)
+			return;
+		scrollBody.removeComponent(r);
+	}
 
 	private void createScrollAnimation() {
 		ArrayList<TRFrame> frames = createFrames();

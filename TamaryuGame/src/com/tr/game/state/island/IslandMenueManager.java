@@ -21,13 +21,15 @@ public class IslandMenueManager {
 		if(curState == c)
 			return;
 		curState = c;
-		if(cur != null)
+		if(cur != null){
 			menu.removeContent(cur);
+		}
 		switch(curState){
 		case MENUE: 
-			menu.setContent(new IslandTextMenue(this));
+			cur = new IslandTextMenue(this);
 			break;
 		case STATS:
+			cur = new IslandMenueStats(this);
 			break;
 		case INVENTORY: 
 			break;
