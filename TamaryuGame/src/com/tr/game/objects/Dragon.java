@@ -131,9 +131,9 @@ public class Dragon extends Actor {
 		this.speed = baseSpeed;
 		this.speedRank = baseSpeed / 2;
 
-		// this.mood = full;
-		// this.hunger = full;
-		// this.thirst = full;
+		this.mood = 100;
+		this.hunger = 100;
+		this.thirst = 100;
 		// this.type = not planned yet;
 		this.stage = 0;
 		this.sex = (Math.random() > 0.5f);
