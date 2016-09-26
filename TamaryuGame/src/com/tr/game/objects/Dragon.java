@@ -8,6 +8,8 @@ import com.tr.engine.grf.gl.TRGLAnimationView;
 import com.tr.game.objects.dragons.DragonAnimation;
 import com.tr.gl.core.Point3D;
 
+import demo.tama.Pear;
+
 public class Dragon extends Actor {
 
 	public static final boolean MALE = true;
@@ -534,7 +536,16 @@ public class Dragon extends Actor {
 	
 	
 	public boolean onDrop(IRenderable r){
-		// TODO
+		if(r == null)
+			return false;
+		
+		if(r instanceof Pear){
+			this.hunger += Math.round(Math.random()*20+10);
+			if(Math.random() > 0.5 || this.hunger < 20){
+				this.mood = Math.round(Math.min(Math.round(Math.random()*30)+this.mood, 100));
+			}
+		}
+		
 		return false;
 	}
 
@@ -599,6 +610,10 @@ public class Dragon extends Actor {
 	public void lookRight(){
 		((TRGLAnimationView) this.getImage()).loadAnimation("lookRight");
 		((TRGLAnimationView) this.getImage()).start();
+	}
+	
+	public void eat(){
+		//((TRGLAnimationView) this.getImage().getComponentByName("head")).loadAnimation("eat");
 	}
 	
 	public void fly(boolean start){

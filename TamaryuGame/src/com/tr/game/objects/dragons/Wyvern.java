@@ -1,8 +1,13 @@
 package com.tr.game.objects.dragons;
 
+import java.util.TimerTask;
+
 import com.tr.engine.grf.Color;
+import com.tr.engine.grf.IRenderable;
+import com.tr.engine.sound.AudioMaster;
 import com.tr.game.objects.Dragon;
 import com.tr.gl.core.Point3D;
+import com.tr.util.GraphicsUtility;
 
 import demo.tama.BabyWyvern;
 
@@ -70,6 +75,7 @@ public class Wyvern extends Dragon {
 		if(this.idle){
 			//tail animation
 			if((nextTailChange - time) < 0){
+				playRandomSrc();
 				//System.out.println("Tail! ("+tailWaving+")");
 				if(tailWaving){
 					//stop
@@ -88,6 +94,7 @@ public class Wyvern extends Dragon {
 			if(this.allowIdleMove && !this.moving && !this.flying){
 				if(this.idleMoveReady){
 					if((nextIdleMove - time) < 0){
+						playRandomSrc();
 						int maxX = getMaxX();
 						int minX = 0, minY = 0;
 						int maxY = getMaxY();
@@ -113,6 +120,24 @@ public class Wyvern extends Dragon {
 		}
 
 		move();
+	}
+	
+	public void playRandomSrc(){
+		if(Math.random() > 0.6){
+			int src = (int) Math.round(Math.random()*8+3);
+			AudioMaster.playSource(src);
+		}
+	}
+	
+	public boolean onDrop(IRenderable r){
+		this.eat();
+		GraphicsUtility.getTimer().schedule(new TimerTask(){
+
+			@Override
+			public void run() {
+				AudioMaster.playSource(2);
+			}}, 300);
+		return super.onDrop(r);
 	}
 	
 	private int getMaxX(){

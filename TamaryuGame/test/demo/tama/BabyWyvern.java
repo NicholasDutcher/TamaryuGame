@@ -23,6 +23,7 @@ public class BabyWyvern extends DragonAnimation{
 		buildAni();
 		createLegAni();
 		createWingAni();
+		createHeadAni();
 		createTailAnimation();
 		createEyeDefaultAni();
 		createEyeCloseAni();
@@ -161,6 +162,10 @@ public class BabyWyvern extends DragonAnimation{
 		v.setZ(this.getPosition().z + 4);
 		views.add(v);
 		this.getComponentByName("head.eyes").addComponent(v);
+	}
+	
+	private void createHeadAni(){
+		
 	}
 
 	private void createDefaultAni() {
