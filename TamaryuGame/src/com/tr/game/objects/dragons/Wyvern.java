@@ -130,14 +130,18 @@ public class Wyvern extends Dragon {
 	}
 	
 	public boolean onDrop(IRenderable r){
-		this.eat();
-		GraphicsUtility.getTimer().schedule(new TimerTask(){
+		if(super.onDrop(r)){
+			this.eat();
+			AudioMaster.playSource(12);
+			GraphicsUtility.getTimer().schedule(new TimerTask(){
 
-			@Override
-			public void run() {
-				AudioMaster.playSource(2);
-			}}, 300);
-		return super.onDrop(r);
+				@Override
+				public void run() {
+					AudioMaster.playSource(2);
+				}}, 800);
+		}
+		
+		return false;
 	}
 	
 	private int getMaxX(){

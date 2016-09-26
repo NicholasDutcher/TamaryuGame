@@ -544,6 +544,7 @@ public class Dragon extends Actor {
 			if(Math.random() > 0.5 || this.hunger < 20){
 				this.mood = Math.round(Math.min(Math.round(Math.random()*30)+this.mood, 100));
 			}
+			return true;
 		}
 		
 		return false;

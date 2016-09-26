@@ -7,7 +7,7 @@ import com.tr.game.objects.DragableIcon;
 public class Pear extends DragableIcon {
 	
 	public Pear(){
-		this.setImage(new TRImage("pear1", "pear_32", "png", "/img", 0, 0, 0, 32, 32, 32, 32));
+		this.setImage(new TRImage("pear1", "pear2_64", "png", "/img", 0, 0, 0, 64, 64, 64, 64));
 		this.setPosition(100f,100f,10f);
 	}
 

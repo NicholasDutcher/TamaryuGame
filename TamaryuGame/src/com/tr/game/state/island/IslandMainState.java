@@ -64,7 +64,7 @@ public class IslandMainState extends TRAbstractGameState implements ITRGlobalMou
 		// scene.addMouseListener(menue.getButton());
 
 		// Sound laden
-		String[] audios = new String[12];
+		String[] audios = new String[13];
 		audios[0] = "res/sound/Blob1.wav";
 		audios[1] = "res/sound/Drip1.wav";
 		audios[2] = "res/sound/Gurren1.wav";
@@ -77,6 +77,7 @@ public class IslandMainState extends TRAbstractGameState implements ITRGlobalMou
 		audios[9] = "res/sound/Squeak25.wav";
 		audios[10] = "res/sound/Squeak26.wav";
 		audios[11] = "res/sound/Squeak27.wav";
+		audios[12] = "res/sound/Apple3.wav";
 		AudioMaster.loadAudioFiles(audios);
 	}
 

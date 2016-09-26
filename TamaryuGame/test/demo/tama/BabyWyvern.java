@@ -165,6 +165,33 @@ public class BabyWyvern extends DragonAnimation{
 	}
 	
 	private void createHeadAni(){
+		TRAnimation ani = new TRAnimation();
+		TRFrameAction action = null;
+		ani.setLoop(false);
+		TRFrame frame1 = new TRFrame();
+		TRFrame frame2 = new TRFrame();
+		TRFrame frame3 = new TRFrame();
+		TRFrame frame4 = new TRFrame();
+		TRFrame frame5 = new TRFrame();
+		
+		//default
+		action = new TRFrameAction();
+		action.posYFlag = true;
+		action.posY = 506;
+		action.path = "head";
+		action.imgFlag = true;
+		action.img = new TRImage("headDefault", "wyvern_baby_head_294x294", "png", "/img", 0, 0, 0, 294, 294, 294, 294);
+		frame1.addAction(action);
+		ani.setInitFram(frame1);
+		
+		((TRGLAnimationView) this.getComponentByName("head")).addAnimation("default", ani);
+		
+		//eat
+		ani = new TRAnimation();
+		ani.setLoop(false);
+		
+		
+		
 		
 	}
 
