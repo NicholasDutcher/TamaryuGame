@@ -178,10 +178,29 @@ public class BabyWyvern extends DragonAnimation{
 		action = new TRFrameAction();
 		action.posYFlag = true;
 		action.posY = 506;
-		action.path = "head";
 		action.imgFlag = true;
-		action.img = new TRImage("headDefault", "wyvern_baby_head_294x294", "png", "/img", 0, 0, 0, 294, 294, 294, 294);
+		action.img = new TRImage("head", "wyvern_baby_head2", "png", "/img", 0, 0, 0, 294, 294, 1176, 294);
 		frame1.addAction(action);
+		
+		action = new TRFrameAction();
+		action.imgFlag = true;
+		action.img = new TRImage("head", "wyvern_baby_head2", "png", "/img", 294, 0, 0, 294, 294, 1176, 294);
+		frame2.addAction(action);
+		
+		action = new TRFrameAction();
+		action.imgFlag = true;
+		action.img = new TRImage("head", "wyvern_baby_head2", "png", "/img", 588, 0, 0, 294, 294, 1176, 294);
+		frame3.addAction(action);
+		
+		action = new TRFrameAction();
+		action.imgFlag = true;
+		action.img = new TRImage("head", "wyvern_baby_head2", "png", "/img", 882, 0, 0, 294, 294, 1176, 294);
+		frame4.addAction(action);
+		
+		action = new TRFrameAction();
+		action.restoreFlag = true;
+		frame5.addAction(action);
+		
 		ani.setInitFram(frame1);
 		
 		((TRGLAnimationView) this.getComponentByName("head")).addAnimation("default", ani);
@@ -189,7 +208,15 @@ public class BabyWyvern extends DragonAnimation{
 		//eat
 		ani = new TRAnimation();
 		ani.setLoop(false);
-		
+		ani.addFrame(frame1);
+		ani.addFrame(frame2);
+		ani.addFrame(frame3);
+		ani.addFrame(frame4);
+		ani.addFrame(frame3);
+		ani.addFrame(frame4);
+		ani.addFrame(frame1);
+		ani.addFrame(frame5);
+		((TRGLAnimationView) this.getComponentByName("head")).addAnimation("eat", ani);
 		
 		
 		
@@ -212,13 +239,8 @@ public class BabyWyvern extends DragonAnimation{
 		frame.addAction(action);
 
 		// set default head image
-		action = new TRFrameAction();
-		action.posYFlag = true;
-		action.posY = 506;
-		action.path = "head";
-		action.imgFlag = true;
-		action.img = new TRImage("headDefault", "wyvern_baby_head_294x294", "png", "/img", 0, 0, 0, 294, 294, 294, 294);
-		frame.addAction(action);
+		((TRGLAnimationView) this.getComponentByName("head")).loadAnimation("default");
+		((TRGLAnimationView) this.getComponentByName("head")).start();
 
 		// set default leg image
 		action = new TRFrameAction();

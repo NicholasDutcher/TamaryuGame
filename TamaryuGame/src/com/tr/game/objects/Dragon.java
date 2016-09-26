@@ -614,7 +614,8 @@ public class Dragon extends Actor {
 	}
 	
 	public void eat(){
-		//((TRGLAnimationView) this.getImage().getComponentByName("head")).loadAnimation("eat");
+		((TRGLAnimationView) this.getImage().getComponentByName("head")).loadAnimation("eat", 10);
+		((TRGLAnimationView) this.getImage().getComponentByName("head")).start();
 	}
 	
 	public void fly(boolean start){
