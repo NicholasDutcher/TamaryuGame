@@ -214,6 +214,10 @@ public class BabyWyvern extends DragonAnimation{
 		ani.addFrame(frame4);
 		ani.addFrame(frame3);
 		ani.addFrame(frame4);
+		ani.addFrame(frame3);
+		ani.addFrame(frame4);
+		ani.addFrame(frame3);
+		ani.addFrame(frame4);
 		ani.addFrame(frame1);
 		ani.addFrame(frame5);
 		((TRGLAnimationView) this.getComponentByName("head")).addAnimation("eat", ani);
@@ -383,7 +387,7 @@ public class BabyWyvern extends DragonAnimation{
 		TRFrameAction action = new TRFrameAction();
 		action.path = "open";
 		action.imgFlag = true;
-		action.img = new TRImage("eyesDefault", "wyvern_baby_eye_216x120", "png", "/img", 0, 0, 0, 210, 120, 432, 120);
+		action.img = new TRImage("eyesDefault", "wyvern_baby_eye_216x120", "png", "/img", 0, 0, 0, 216, 120, 432, 120);
 		action.posZFlag = true;
 		action.posZ = (int) (this.getPosition().z + 4);
 		frame.addAction(action);
@@ -391,7 +395,7 @@ public class BabyWyvern extends DragonAnimation{
 		action = new TRFrameAction();
 		action.path = "closed";
 		action.imgFlag = true;
-		action.img = new TRImage("eyesClosed", "wyvern_baby_eye_216x120", "png", "/img", 210, 0, 0, 210, 120, 432, 120);
+		action.img = new TRImage("eyesClosed", "wyvern_baby_eye_216x120", "png", "/img", 216, 0, 0, 216, 120, 432, 120);
 		action.posZFlag = true;
 		action.posZ = (int) (this.getPosition().z + 3);
 		frame.addAction(action);
@@ -475,7 +479,7 @@ public class BabyWyvern extends DragonAnimation{
 		TRFrameAction action = new TRFrameAction();
 		action.path = "open";
 		action.imgFlag = true;
-		action.img = new TRImage("eyesDefault", "wyvern_baby_eye_216x120", "png", "/img", 0, 0, 0, 210, 120, 432, 120);
+		action.img = new TRImage("eyesDefault", "wyvern_baby_eye_216x120", "png", "/img", 0, 0, 0, 216, 120, 432, 120);
 		action.posZFlag = true;
 		action.posZ = (int) (this.getPosition().z + 3);
 		frame.addAction(action);
@@ -483,7 +487,7 @@ public class BabyWyvern extends DragonAnimation{
 		action = new TRFrameAction();
 		action.path = "closed";
 		action.imgFlag = true;
-		action.img = new TRImage("eyesClosed", "wyvern_baby_eye_216x120", "png", "/img", 210, 0, 0, 210, 120, 432, 120);
+		action.img = new TRImage("eyesClosed", "wyvern_baby_eye_216x120", "png", "/img", 216, 0, 0, 216, 120, 432, 120);
 		action.posZFlag = true;
 		action.posZ = (int) (this.getPosition().z + 4);
 		frame.addAction(action);

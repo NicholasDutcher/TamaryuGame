@@ -138,7 +138,7 @@ public class Wyvern extends Dragon {
 				@Override
 				public void run() {
 					AudioMaster.playSource(2);
-				}}, 800);
+				}}, 1000);
 		}
 		
 		return false;

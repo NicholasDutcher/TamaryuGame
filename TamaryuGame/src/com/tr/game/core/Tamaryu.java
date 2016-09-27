@@ -60,7 +60,7 @@ public class Tamaryu {
 	}
 
 	private void initGraphics() {
-		rc = new TRGLRenderContext(1024, 740);
+		rc = new TRGLRenderContext(1280, 1024);
 		rc.setDebug(true);
 		rc.init();
 		rc.setGRP(true);
